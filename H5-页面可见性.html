@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>Page Visibility 页面可见性API</h1>
+
+该API可以用来检测页面对于用户的可见性，即返回用户当前浏览的页面或标签tap的状态变化。 在最小化浏览器、切换tap页面时生效.(如需对app中几个webview进行切换操作时，可使用pageVisibility接口进行相应的事件监听和处理。)
+<pre>
+page visibility的介绍
+
+【document.hidden】 该值表示page是否是可见的,值为boolean值
+【document.visibilityState】 这个visibilitystate 可有三个值得可能：
+【visible】 表示该page是处于最前面的页面并且不是处于一个最小化的窗口
+【hidden】 表示该page不是处于最前面的页面或者是处于一个最小化的窗口
+【prerender】 表示该页面内容正在重新渲染并且该页面对于用户是不可见的
+【isibilitychange Event】*监听window visibility 的改变的事件
+  </pre>
+<script>
+  // 设置隐藏属性和可见改变事件的名称，属性需要加浏览器前缀
+  // since some browsers only offer vendor-prefixed support  var hidden, state, visibilityChange;
+  if (typeof document.hidden !== "undefined") {
+    hidden = "hidden";
+    visibilityChange = "visibilitychange";
+    state = "visibilityState";
+  } else if (typeof document.mozHidden !== "undefined") {
+    hidden = "mozHidden";
+    visibilityChange = "mozvisibilitychange";
+    state = "mozVisibilityState";
+  } else if (typeof document.msHidden !== "undefined") {
+    hidden = "msHidden";
+    visibilityChange = "msvisibilitychange";
+    state = "msVisibilityState";
+  } else if (typeof document.webkitHidden !== "undefined") {
+    hidden = "webkitHidden";
+    visibilityChange = "webkitvisibilitychange";
+    state = "webkitVisibilityState";
+  }
+  // 添加一个标题改变的监听器
+  document.addEventListener(visibilityChange, function(e) {
+    console.log(document.hidden)
+  }, false);
+</script>
+</body>
+</html>

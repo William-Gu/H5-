@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+  <body>
+    举个例子说明:比如要预先加载某个页面,可以这样:
+    <link rel="prefetch" href="http://www.example.com/"> <!-- Firefox -->
+    但如果是google的话,要用另外的一个名称,即:
+    <link rel="prerender" href="http://www.example.com/"> <!-- Chrome -->
+
+    预先预测到用户期望点的页面(比如用户看最新的受欢迎的热图,他
+    可能看了第一页后,会继续看下一页,这个时候就可以用预先加载这个特性了).比如
+    <link rel="prefetch" href="<?php echo get_next_posts_page_link(); ?>">
+    而单独取一张图片也是可以的,比如:
+    <link rel="prefetch" href="/images/test.jpg"/>
+  </body>
+</html>

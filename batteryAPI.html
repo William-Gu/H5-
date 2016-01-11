@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    canvas,video{border:1px solid red}
+  </style>
+</head>
+<body>
+
+<script>
+  var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery || navigator.msBattery;
+  // 电池属性
+  alert(battery.level); // 0.58
+  alert("Battery discharging time: ", battery.dischargingTime);
+  // 添加事件监听器
+  battery.addEventListener("chargingchange", function(e) {
+    alert("Battery charge change: ", battery.charging);
+  }, false);
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端点击300ms延迟</title>
+</head>
+<body>
+<button id="btn"></button>
+<script>
+    document.getElementById("btn").addEventListener("click",function(event){
+        console.log(new Date().getTime());
+        console.log(event);
+        console.log(new Date().getTime());
+    })
+</script>
+</body>
+</html>

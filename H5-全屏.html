@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>FullScreen 的API使用非常简单，其有两种模式</h1>
+<video src="img/1.jpg" id="video"></video>
+<script>
+  var video=document.getElementById("video");
+
+  function launchFullScreen(element) {
+    if(element.requestFullScreen) {
+      element.requestFullScreen();
+    } else if(element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if(element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    }
+  }
+
+  video.ondblclick=function(){
+    launchFullScreen(document.documentElement); // the whole page
+    launchFullScreen(document.getElementById("video"));
+    console.log(document.fullScreenEnabled);
+  }
+
+  video.onclick=function(){
+    // Whack fullscreenfunction exitFullscreen() {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table class="dataintable">
+    <tr><th style="width:25%;">默认值：source-over</td></tr>
+    <tr><th>JavaScript 语法：context.globalCompositeOperation=&quot;source-in&quot;;</td></tr>
+</table>
+<canvas id="myCanvas" width="600" height="400" style="border:1px solid black"></canvas>
+<h3>属性值</h3>
+<table class="dataintable">
+    <tr><td>source-over:默认。在目标图像上显示源图像。</td></tr>
+    <tr><td>source-atop:在目标图像顶部显示源图像。源图像位于目标图像之外的部分是不可见的。</td></tr>
+    <tr><td>source-in:在目标图像中显示源图像。只有目标图像内的源图像部分会显示，目标图像是透明的。</td></tr>
+    <tr><td>source-out:在目标图像之外显示源图像。只会显示目标图像之外源图像部分，目标图像是透明的。</td></tr>
+    <tr><td>destination-over:在源图像上方显示目标图像。</td></tr>
+    <tr><td>destination-atop:在源图像顶部显示目标图像。源图像之外的目标图像部分不会被显示。</td></tr>
+    <tr><td>destination-in:在源图像中显示目标图像。只有源图像内的目标图像部分会被显示，源图像是透明的。</td></tr>
+    <tr><td>destination-out:在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的。</td></tr>
+    <tr><td>lighter:显示源图像 + 目标图像。</td></tr>
+    <tr><td>copy:显示源图像。忽略目标图像。</td></tr>
+    <tr><td>source-over:使用异或操作对源图像与目标图像进行组合。</td></tr>
+</table>
+
+<script>
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+
+    ctx.fillStyle="red";
+    ctx.fillRect(20,20,75,50);
+    ctx.globalCompositeOperation="source-over";
+    ctx.fillStyle="blue";
+    ctx.fillRect(50,50,75,50);
+
+    ctx.fillStyle="red";
+    ctx.fillRect(20,110,75,50);
+    ctx.globalCompositeOperation="source-atop";
+    ctx.fillStyle="blue";
+    ctx.fillRect(50,140,75,50);
+
+    ctx.fillStyle="red";
+    ctx.fillRect(150,20,75,50);
+    ctx.globalCompositeOperation="destination-over";
+    ctx.fillStyle="blue";
+    ctx.fillRect(180,50,75,50);
+</script>
+</body>
+</html>

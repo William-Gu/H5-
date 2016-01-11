@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="400" style="border:1px solid black"></canvas>
+
+<script>
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.fillStyle="red";
+    ctx.fillRect(0,0,10,10);
+    ctx.fillStyle="blue";
+    ctx.fillRect(10,10,20,20);
+    //像素点:[r1,g1,b1,a1]
+    console.log(ctx.getImageData(0,0,20,20));
+</script>
+</body>
+</html>
