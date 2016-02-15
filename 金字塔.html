@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'> </style>
+  <script>
+/**//**//**/console.log('九九乘法')/**//**//**/
+for (var i=1;i<=9;i++){
+	for (var t=1,str='';t<=i;t++){
+		var r=t+'x'+i+'='+i*t+'  ';
+		str	+=r;
+		}
+	console.log(str);
+}
+/**//**//**/console.log('顺序星星')/**//**//**/
+for(var a=1,b='*',star='';a<=5;a++){
+	var star=star+b;
+	console.log(star);
+}
+
+/**//**//**/console.log('--倒序星星')/**//**//**/
+for(var c=5;c>0;c--){
+	for(var e=c,d='*',star1='';e>0;e--){
+		var star1=star1+d;
+	}
+	console.log(star1);
+}
+/**//**//**/console.log('++倒序星星')/**//**//**/
+for(var c1=1;c1<6;c1++){
+	for(var e1=0,d1='*',star2='';e1<6-c1;e1++){
+		var star2=star2+d1;
+	}
+	console.log(star2);
+}
+/**//**//**/console.log('等腰三角')/**//**//**/
+for(var cow=1;cow<6;cow++){
+	for(var left=0,spa=' ',space='';left<6-cow;left++){
+		var space=space+spa;
+	}
+	for(var right=0,xing='*',asterisk='';right<2*cow-1;right++){  
+			asterisk=asterisk+xing;
+		} 
+	console.log(space+asterisk);
+}
+</script>
+</head>
+<body> 
+		 
+</body>
+</html>

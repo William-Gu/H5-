@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .list {
+            counter-reset: i; //reset conunter
+        }
+        .list > li {
+            counter-increment: i; //counter ID
+        }
+        .list li:after {
+            content: "[" counter(i) "]"; //print the result
+        }
+        .languages {
+            counter-reset: characters;
+        }
+        input:checked {
+            counter-increment: characters;
+        }
+        .total:after {
+            content: counter(characters);
+        }
+
+        .numbers {  counter-reset: sum;  }
+        #one:checked { counter-increment: sum 1; }
+        #two:checked { counter-increment: sum 2; }
+        #three:checked { counter-increment: sum 3; }
+        #four:checked { counter-increment: sum 4; }
+        #five:checked { counter-increment: sum 5; }
+        #one-hundred:checked { counter-increment: sum 100; }
+        .sum::after {content: '= ' counter(sum);  }
+
+    </style>
+</head>
+<body>
+<ol class="list">
+    <li></li><li></li><li></li>
+</ol>
+<hr/>
+
+<div class="languages">
+    <input id="c" type="checkbox"><label for="c">C</label>
+    <input id="C++" type="checkbox"><label for="C++">C++</label>
+    <input id="C#" type="checkbox"><label for="C#">C#</label>
+    <input id="Java" type="checkbox"><label for="Java">Java</label>
+    <input id="JavaScript" type="checkbox"><label for="JavaScript">JavaScript</label>
+    <input id="PHP" type="checkbox"><label for="PHP">PHP</label>
+    <input id="Python" type="checkbox"><label for="Python">Python</label>
+    <input id="Ruby" type="checkbox"><label for="Ruby">Ruby</label>
+</div>
+<p class="total">Total selected:</p>
+<hr/>
+
+<div class="numbers">
+    <input id="one" type="checkbox"><label for="one">1</label>
+    <input id="two" type="checkbox"><label for="two">2</label>
+    <input id="three" type="checkbox"><label for="three">3</label>
+    <input id="four" type="checkbox"><label for="four">4</label>
+    <input id="five" type="checkbox"><label for="five">5</label>
+    <input id="one-hundred" type="checkbox"><label for="one-hundred">100</label>
+</div>
+<p class="sum">Sum</p>
+
+
+</body>
+</html>

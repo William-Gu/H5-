@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    var a="constTypeId=&constTypeDesc=1111&constTypeCode=2222&constTypeUse=1&sort=3";
+    function KY2JSON(str){
+        var obj={};
+        var paraString=str.split("&");
+        for(var i in paraString){
+            keyvalue=paraString[i].split("=");
+            key=keyvalue[0];
+            value=keyvalue[1];
+            obj[key]=value;
+        }
+        return obj
+    }
+    KY2JSON(a)
+</script>
+</body>
+</html>

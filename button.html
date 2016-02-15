@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .shadow-icon {
+            position: relative;
+        }
+        .shadow-icon:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -50px;
+            height: 100%;
+            width: 100%;
+            box-shadow: 0 5px 0 #000, 0 15px 0 #fff, 0 25px 0 #000, 0 35px 0 #fff, 0 45px 0 #000;
+        }
+    </style>
+</head>
+<body>
+<button class="shadow-icon"></button>
+</body>
+</html>
