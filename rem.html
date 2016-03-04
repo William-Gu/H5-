@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0;maximum-scale=1.0; user-scalable=no;"/>
+    <link href="favicon.ico" rel="Shortcut  Icon">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="Author" content="Liba.com" />
+    <title>篱笆iPad</title>
+    <style>
+        html{
+            font-size:60px;
+        }
+        .btn,.btn1 {
+            width: 6rem;
+            height: 3rem;
+            line-height: 3rem;
+            font-size: 1.2rem;
+            display: inline-block;
+            background: #06c;
+            color: #fff;
+            border-radius: .5rem;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn1 {
+            width: 12rem;
+            height: 6rem;
+            vertical-align:middle;
+            display:table-cell;
+        }
+    </style>
+</head>
+<body>
+<div class="btn" id="aa">确认</div>
+<div id="btn">0</div>
+<div class="btn1" id="bb">确认</div>
+<div id="btn1">0</div>
+<div>Outwidth:<span id="a"></span></div>
+<div>Outheight:<span id="b"></span></div>
+<div>width:<span id="c"></span></div>
+<div>height:<span id="d"></span></div>
+<script>
+    var a=document.getElementById('a')
+    var b=document.getElementById('b')
+    var c=document.getElementById('c')
+    var d=document.getElementById('d')
+    var btn=document.getElementById('btn')
+    var btn1=document.getElementById('btn1')
+    setInterval(function(){
+        a.innerHTML=window.screen.availWidth;
+        b.innerHTML=window.screen.availHeight;
+        c.innerHTML=window.innerWidth;bb
+        d.innerHTML=window.innerHeight;
+        btn.innerHTML='width:'+window.getComputedStyle(aa,null).getPropertyValue("width")+',height='+window.getComputedStyle(aa,null).getPropertyValue("height");
+        btn1.innerHTML='width:'+window.getComputedStyle(bb,null).getPropertyValue("width")+',height='+window.getComputedStyle(bb,null).getPropertyValue("height");
+    },10)
+</script>
+</body>
+</html>

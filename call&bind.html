@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var a = {
+        name:'one pixel', //定义a的属性
+        say:function(){ //定义a的方法
+            console.log("Hi,I'm function a!");
+        }
+    };
+    function b(name){
+        console.log("Post params: "+ name);
+        console.log("I'm "+ this.name);
+        this.say();
+    }
+    b.call(a,'test');//call把b的this指向传入的a的this，自身的传至在arg[1]
+    b.call(null,'test');//call把b的this指向传入的window的this，自身的传至在arg[1]
+
+
+//    Post params: test
+//    I'm onepixel
+//    I'm function a!
+
+
+
+    var obj = {name:'onepixel'};
+    /**
+     * 给document添加click事件监听，并绑定onClick函数
+     * 通过bind方法设置onClick的this为obj，并传递参数p1,p2
+     */
+    document.addEventListener('click',onClick.bind(obj,'p1','p2'),false);
+
+    //当点击网页时触发并执行
+    function onClick(a,b){
+        console.log(
+          this.name, //onepixel
+          a, //p1
+          b  //p2
+        )
+    }
+</script>
+</body>
+</html>

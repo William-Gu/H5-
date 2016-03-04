@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>Outwidth:<span id="a"></span></div>
+<div>Outheight:<span id="b"></span></div>
+<div>width:<span id="c"></span></div>
+<div>height:<span id="d"></span></div>
+<script>
+    var a=document.getElementById('a')
+    var b=document.getElementById('b')
+    var c=document.getElementById('c')
+    var d=document.getElementById('d')
+    setInterval(function(){
+        a.innerHTML=window.screen.availWidth;
+        b.innerHTML=window.screen.availHeight;
+        c.innerHTML=window.innerWidth;
+        d.innerHTML=window.innerHeight;
+    },10)
+</script>
+</body>
+</html>
