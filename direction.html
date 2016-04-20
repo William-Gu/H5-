@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        button{width:50px;height:20px;background:#888}
+        p{text-align: left}
+    </style>
+</head>
+<body>
+<p id="dir">
+    <button>a</button>
+    <button>b</button>
+</p>
+<button id="change">change</button>
+<script>
+    var change=document.getElementById('change');
+    var dir=document.getElementById('dir');
+    change.onclick=function(){
+        dir.setAttribute('style','direction:rtl')
+    }
+</script>
+</body>
+</html>
