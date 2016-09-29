@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <sctipt src="js/jquery-1.11.3.js"></sctipt>
+</head>
+<body>
+<form action="register.php" id="register" method="post">
+    <h1>Register</h1>
+    <label for="name">Username</label>
+    <input type="text" id="name" name="name"/>
+    <label for="name">Password</label>
+    <input type="text" id="password" name="password"/>
+    <label for="name">Email</label>
+    <input type="text" id="email" name="email"/>
+    <script>
+        $('#register').on('submit',function(e){
+            e.preventDefatult();
+            var details=$('#register').serialize()
+            $.post('register.php',details,function(data){
+                $('#register').html(data);
+            })
+        })
+    </script>
+</form>
+</body>
+</html>

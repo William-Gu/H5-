@@ -1,0 +1,46 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Flex</title>
+<style>
+	#a{
+		display: flex;
+		flex-direction: row;
+		 	/* row（默认值）：向右排; row-reverse：向左排; column：向下排; column-reverse：向上排; */
+		flex-wrap: wrap;
+		 	/* nowrap（默认）：不换行; wrap：换行，第一行在上方; wrap-reverse：换行，第一行在下方; flex-flow: flex-direction + flex-wrap; flex-flow: row wrap-reverse; */
+		justify-content: space-around;
+		 	/* flex-start: 左对齐;flex-end：右对齐;center：居中; space-between：两端对齐，项目之间的间隔都相等; space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍; */
+		align-items: flex-start;
+			/*flex-start：上对齐; flex-end：下对齐; center：水平居中对齐; baseline: 各子元素第一行文字的基线对齐; stretch（默认值）：未设高度，将拉伸整个高度; */
+		align-content: flex-start;
+		width: 240px;height: 120px;border: 1px solid black;
+	}
+	.a{width: 50px;height: 50px;border: 1px solid black;
+		order: 0;
+			/*排列顺序:默认0，数值越小，排列越靠前; */
+	}
+	.b{height: 40px;order: 2;
+		flex-grow: 0;/*横向拉伸: default 0; 1:等分剩余空间; 2:double空间; */
+		flex-shrink: 1;/*横向压缩: default 1; 0:缩小空间; */
+		flex-basis: 40px;/* default auto; */
+			/*flex: none(0 0 auto); auto(1 1 auto); flex-grow + flex-shrink + flex-basis */
+	}
+	.c{height: 40px;
+		order: 1;/*排列顺序:默认0，数值越小，排列越靠前; */
+		align-self: flex-end;
+			/*align-self单个项目的对齐方式，可覆盖align-items属性。*/
+	}
+	.d{height: 20px;}
+</style>
+</head>
+<body>
+	<div id="a">
+		<div class="a">a</div>
+		<div class="a b">b</div>
+		<div class="a c">c</div>
+		<div class="a d">d</div>
+		<div class="a">e</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+    document.addEventListener("touchstart", touchStart, false);
+    document.addEventListener("touchend", touchEnd, false);
+    function touchStart(event) {
+        if (event.type === "touchstart") {
+            startX = event.touches[0].pageX;
+            event.preventDefault()
+        }
+        else {
+            startX = event.pageX;
+
+        }
+
+
+    }
+    function touchEnd(event) {
+        if (event.type === "touchend") {
+            var diffX = startX - event.changedTouches[0].pageX;
+        }
+        else {
+            var diffX = startX - event.pageX;
+        }
+        alert(diffX)
+    }
+</script>
+</body>
+</html>
