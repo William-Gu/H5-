@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+   // ES5提供String.fromCharCode方法，用于从码点返回对应字符
+   var a1=String.fromCharCode(0x20BB7) //"ஷ"
+   // ES6识别32位的UTF-16字符（Unicode编号大于0xFFFF）
+   var a2=String.fromCodePoint(0x20BB7) // "𠮷"
+       //不能识别码点大于0xFFFF的字符
+       var b1='𠮷'.charAt(0) // "\uD842"
+       //可以识别Unicode编号大于0xFFFF的字符
+  //     var b2='𠮷'.at(0) // "𠮷"
+
+   //for...of循环遍历
+   for (let codePoint of 'foo') {
+       console.log(codePoint)
+   }
+   var name = "Bob", time = "today";
+   `Hello ${name},how are you ${time}?
+   o`;
+
+   // 写法一
+   let s = 'return ' + '`Hello ${name}!`';
+   let f = new Function('name', s);
+   f('Jack') // "Hello Jack!"
+
+   // 写法二
+   let s1 = '(name) => `Hello ${name}!`';
+   let f1 = eval.call(null, s1);
+   f1('Jack') // "Hello Jack!"
+</script>
+</body>
+</html>
