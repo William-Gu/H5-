@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        .a{color:red;}
+        .a{color:blue;}
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div></div>
+    </div>
+</div>
+<script>
+    const a="aaa";
+    var b=`abc ${a}`;
+    console.log(b)
+//Promise执行
+    var wait1000 =  ()=> new Promise((resolve, reject)=> {setTimeout(resolve, 1000)});
+    wait1000()
+        .then(function() {
+            console.log('Yay!')
+            return wait1000()
+        })
+        .then(function() {
+            console.log('Wheeyee!')
+        });
+//类继承
+class baseModel {
+  constructor(options, data) { 
+    this.name = 'Base';
+    this.url = 'http://azat.co/api';
+    this.data = data;
+    this.options = options;
+   }
+    getName() {
+        console.log(`Class name: ${this.name}`);
+    }
+}
+class AccountModel extends baseModel {
+    constructor(options, data) {
+         super({private: true}, ['32113123123', '524214691']); 
+       this.name = 'Account Model';
+       this.url +='/accounts/';
+    }
+    get accountsData() {
+        return this.data;
+    }
+}
+let accounts = new AccountModel(5);
+accounts.getName();
+console.log('Data is %s', accounts.accountsData);
+</script>
+</body>
+</html>

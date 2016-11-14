@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		#root{width: 100%;border: 1px solid #ccc}
+		#root div{width:100px;max-height:50px;border:1px solid yellow;}
+		#a{
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		#b{
+			display: -webkit-box;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			word-break: break-all;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+		}
+	</style>
+</head>
+<body>
+<div id="root">
+	<div id="a">单行溢出单行溢出单行溢出单行溢出单行溢出单行溢出</div>
+	<div id="b">多行溢出多行溢出多行溢出多行溢出多行溢出多行溢出</div>
+</div>
+</body>
+</html>

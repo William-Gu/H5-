@@ -1,5 +1,5 @@
 let {toString: a} = 123;
-console.log(a)	//Number.prototype.toString
+console.log(a)  //Number.prototype.toString
 let {toString: b} = true;
 console.log(b) //Boolean.prototype.toString
  
