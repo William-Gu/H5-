@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+  <img src="" id="img" alt="">
+  <script>
+    //1
+    var img = document.getElementById('img')
+    var xhr = new XMLHttpRequest();
+
+  if(false){
+      xhr.responseType = "arraybuffer"
+      xhr.open('Get','./images/a.jpg')
+      xhr.onload = function(){
+        var result = xhr.response;
+        console.log(result);
+        var blob = new Blob([result])
+        img.src = window.URL.createObjectURL(blob)
+      }
+    
+  }else{
+      xhr.responseType = "blob"
+      xhr.open('Get','./images/a.jpg')
+      xhr.onload = function(){
+        var result = xhr.response;
+        console.log(result);
+        img.src = window.URL.createObjectURL(result)
+      }
+
+  }
+
+    xhr.send()
+  </script>
+</body>
+</html>
