@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+   <meta charset="utf-8"/>
+   <script>
+	    Number.prototype.toFixed=function(d){
+			var result=Math.round(this*Math.pow(10,d))/Math.pow(10,d);
+			console.log(result);
+			//this代替参数中的num，自动获得.toFixed之前的对象
+			return result;
+		}
+
+var n=123.456;
+var m=555.555;
+
+console.log(n.toFixed(-2));//100
+            //new Number(n).toFixed(-2)
+console.log(m.toFixed(2));//555.56
+            //new Number(m).toFixed(-2)
+
+			Array.prototype.indexOf=function(){
+				if(arguments.length!=1){
+					throw new Error("indexOf仅接受一个参数");
+				}else{
+					var elem=arguments[0];
+					for(var i=0;i<this.length;i++){
+						if(elem===this[i]){
+							return i;
+						}
+					}
+					return -1;
+				}
+			}
+			var arr=[1,2,3,4];
+			var names=["eric","scott","john"];
+			console.log(arr.indexOf(3)); //2
+			console.log(arr.indexOf(5)); //-1
+			console.log(names.indexOf("eric")); //0
+			console.log(names.indexOf("tom")); //-1
+   </script>
+ </HEAD>
+
+ <BODY>
+ </BODY>
+</HTML>

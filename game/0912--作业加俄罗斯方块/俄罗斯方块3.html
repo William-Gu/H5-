@@ -1,0 +1,377 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+	#top{
+		width:300px;
+		border:1px solid black;
+		font-size:13pt;
+		padding-bottom:8px;
+		background:#ff9;
+		overflow:hidden;
+	}
+	span{
+		font-size:20pt;
+		color:green
+	}
+	#canvas{
+		margin:0 auto
+	}
+  </style>
+
+ </head>
+ <body>
+  <div id='top'>
+	  <div style='float:left'>
+	  	速度:1<span id='curSpeedEle'></span>
+	  	当前积分:0<span id='curScoreEle'></span>
+	  </div>
+	  <div style='float:right'>
+	  	最高积分:0<span id='maxScoreEle'></span>
+	  </div>
+  </div>
+  <canvas width='300' height='500' style='border:1px solid black' id='canvas'>
+  </canvas>
+  
+  <script>
+	var cvs=document.getElementById('canvas')
+	var ctx=cvs.getContext('2d') 
+	ctx.beginPath();
+	var rows=25,cols=15,cellWidth=300,cellHeight=500,cellSize=20;
+	var isPlaying = true;
+	for(var i=0;i<rows;i++){
+		ctx.moveTo(0,i*cellSize);
+		ctx.lineTo(cols*cellSize,i*cellSize)
+	}
+	for(var i=0;i<cols;i++){
+		ctx.moveTo(i*cellSize,0)
+		ctx.lineTo(i*cellSize,rows*cellSize)
+	}
+	ctx.closePath();
+	ctx.strokeStyle='#aaa';
+	ctx.lineWidth=0.2;
+	ctx.stroke()
+	
+	var stat=[];
+	for(var i=0;i<rows;i++){
+		stat[i]=[];
+		for(var j=0;j<cols;j++){
+			stat[i][j]=0;
+		}	
+	}
+	colors = ["#fff", "#f00" , "#0f0" , "#00f"
+	, "#c60" , "#f0f" , "#0ff" , "#609"];
+	var blockArr=[
+				//Z
+					[{x:cols/2-1,y:0,color:1},
+						{x:cols/2,y:0,color:1},
+						{x:cols/2,y:1,color:1},
+						{x:cols/2+1,y:1,color:1}
+					],
+					//反Z
+					[{x:cols/2+1,y:0,color:2},
+						{x:cols/2,y:0,color:2},
+						{x:cols/2,y:1,color:2},
+						{x:cols/2-1,y:1,color:2}
+					],
+					//口
+					[{x:cols/2-1,y:0,color:3},
+						{x:cols/2,y:0,color:3},
+						{x:cols/2-1,y:1,color:3},
+						{x:cols/2,y:1,color:3}
+					],
+					//L
+					[{x:cols/2-1,y:0,color:4},
+						{x:cols/2-1,y:1,color:4},
+						{x:cols/2-1,y:2,color:4},
+						{x:cols/2,y:2,color:4}
+					],
+					//J
+					[{x:cols/2,y:0,color:5},
+						{x:cols/2,y:1,color:5},
+						{x:cols/2,y:2,color:5},
+						{x:cols/2,y:2,color:5}
+					],
+					//|
+					[{x:cols/2,y:0,color:6},
+						{x:cols/2,y:1,color:6},
+						{x:cols/2,y:2,color:6},
+						{x:cols/2,y:3,color:6}
+					],
+					//土
+					[{x:cols/2,y:0,color:7},
+						{x:cols/2-1,y:1,color:7},
+						{x:cols/2,y:1,color:7},
+						{x:cols/2+1,y:1,color:7}
+					]
+				]
+	var initBlock=function(){
+		var rand=Math.floor(Math.random()*blockArr.length)
+		currentFall=[
+			{x:blockArr[rand][0].x,y:blockArr[rand][0].y,color:blockArr[rand][0].color},
+			{x:blockArr[rand][1].x,y:blockArr[rand][1].y,color:blockArr[rand][1].color},
+			{x:blockArr[rand][2].x,y:blockArr[rand][2].y,color:blockArr[rand][2].color},
+			{x:blockArr[rand][3].x,y:blockArr[rand][3].y,color:blockArr[rand][3].color}
+		]
+	}
+	//drop
+	var moveDown=function(){
+		var canDown=true;
+		for(var i=0;i<currentFall.length;i++){
+			//到底了吗？
+			if(currentFall[i].y>=rows-1){canDown=false;break;};
+			//下面有码？
+			if(stat[currentFall[i].y+1][currentFall[i].x]!=0){canDown=false;break}
+		}
+		if(canDown==true){
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currrentFall[i];
+				ctx.fillStyle='white';
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+			for(i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				cur.y++;
+			}
+			for(i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyle=colors[cur.color]
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+		}else{
+			for(i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				if(cur.y<2){
+					localStorage.remove('curScore');
+					localStorage.remove('stat')
+					localStorage.remove('curSpeed');
+					if(confirm('结束游戏')){
+						maxScore=localStorage.getItem('maxScore');
+						maxScore=maxScore==null?0:maxScore;
+						if(curScore>=maxScore){
+							localStorage.setItem('maxScore',curScore);
+						}
+					}
+					isPlaying=false;
+					clearInterval(curTimer);
+				}
+				stat[cur.y][cur.x]=cur.color;
+			}
+			lineFull();
+			localStorage.setItem('stat',JSON.stringify(stat));
+			initBlock();
+		}
+	}
+	var lineFull=function(){
+		for(var i=0;i<rows;i++){
+			var flag=true;
+			for(var j=0;j<cols;j++){
+				if(stat[i][j]==0){
+					flag=false;
+					break;
+				}
+			}
+			if(flag){
+				curScoreEle.innerHTML=curScore+=100;
+				localStorage.setInem('curScore',curScore);
+				if(curScore>=curSpeed*curSpeed*500){
+					curSpeedEle.innerHTML=curSpeed+=1;
+					localStorage.serItem('curSpeed',curSpeed);
+					clearInterval(curTimer);
+					curTimer=setInterval('moveDown()',500/curSpeed)
+				}
+				//当前方块下移
+				for(var k=i;k>0;k--){
+					for(var l=0;l<cols;l++){
+						stat[k][l]=stat[k-1][l];
+					}
+				}
+				/* 	消除 */
+				drawBlock()
+			}
+		}
+	}
+	var drawBlock=function(){
+
+		for(var i=0;i<rows;i++){
+			for(var j=0;j<cols;j++){
+				if(stat[i][j]!=0){
+					ctx.fillStyle=colors[stat[i][j]];
+					ctx.filRect(j*cellSize+1,i*cellSize+1,cellSize-2,cellSize-2)
+				}else{
+					ctx.fillStyle='white';
+					ctx.fillRect(j*cellSize+1,i*cellSize+1,cellSize-2,cellSize-2)
+				}
+			}
+		}
+
+	}
+	window.onkeydown=function(event){
+		switch(event.keyCode){
+			case 37:
+				if(!isPlaying){return};
+				moveLeft()
+				break;
+			case 38:
+				if(!isPlaying){return};
+				rotate();
+				break;
+			case 39:
+				if(!isPlaying){return};
+				moveRight();
+				break;
+			case 40:
+				if(!isPlaying){return};
+				moveDown();
+				break;
+		}
+	}
+	var moveLeft=function(){
+		var canLeft=true;
+		for(var i=0;i<currentFall.length;i++){
+			if(currentFall[i].x<=0){
+				canLeft=false;break;
+			}
+			if(satus[currentFall[i].y][currentFall[i].x-1]!=0){
+				canLeft=false;
+				break;
+			}
+		}
+		if(canLeft){
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyele='white';
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				curr.x--
+			}
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyle==colors[cur.color];
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+		}
+	}
+	var moveRight=function(){
+		var canRight=true;
+		for(var i=0;i<currentFall.length;i++){
+			if(currentFall[i].x>=cols-1){
+				canRight=false;break;
+			}
+			if(satus[currentFall[i].y][currentFall[i].x+1]!=0){
+				canRight=false;
+				break;
+			}
+		}
+		if(canRight){
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyele='white';
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				curr.x++
+			}
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyle==colors[cur.color];
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+		}
+	}
+	var rotate=function(){
+		var canRotate=true;
+		for(var i=0;i<currentFall.length;i++){
+			var preX=currentFall[i].x;
+			var preY=currentFall[i].y;
+			if(i!=2){
+				var afterRotateX=currentFall[2].x+preY-currentFall[2].y;
+				var afterRotateY=currentFall[2].y-preX+currentFall[2].x;
+				if(stat[afterRotateY][afterRotateX+1]!=0){
+					canRotate=false;
+					break;
+				}
+				//旋转左越界
+				if(afterRotateX<0||stat[afterRotateY-1][afterRotateX]!=0){
+					moveRight();
+					afterRotateX=currentFall[2].x+preY-currentFall[2].y;
+					afterRotateY=currentFall[2].y-preX+currentFall[2].x;
+					break;
+				}
+				//旋转右越界
+				if(afterRotateX>=cols-1||stat[afterRotateY][afterRotateX+1]!=0){
+					moveLeft();
+					afterRotateX=currentFall[2].x+preY-currentFall[2].y;
+					afterRotateY=currentFall[2].y-preX+currentFall[2].x;
+					break;
+				}
+			}
+		}
+		if(canRotate){
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyle='white';
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+			for(var i=0;i<currentFall.length;i++){
+				var preX=currentFall[i].x;
+				var preY=currentFall[i].y
+				if(i==2){
+					currentFall[i].x=currentFall[2].x+preY-currentFall[2].y;
+					currentFall[i].y=currentFall[2].y-preX+currentFall[2].x;
+				}
+			}
+			for(var i=0;i<currentFall.length;i++){
+				var cur=currentFall[i];
+				ctx.fillStyle=colors[cur.color];
+				ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2)
+			}
+		}
+	}
+	var moveDown=function(){}
+	
+	window.onload=function(){
+		curScoreEle=document.getElementById('curScoreEle');
+		curSpeedEle=document.getElementById('curSpeedEle');
+		maxScoreEle=document.getElementById('maxScoreEle');
+		var tmpstat=localStorage.getItem('stat');
+		stat=tmpstat==null?stat:JSON.parse(tmpstat);
+		drawBlock();
+		curScore=localStorage.getItem('curScore');
+		curScore=curScore==null?0:parseInt(curScore);
+		curScoreEle.innerHTML=curScore;
+		maxScore=localStorage.getItem('maxScore');
+		maxScore=maxScore==null?1:parseint(maxScore);
+		maxScore.innerHTML=maxScore;
+		curSpeed=localStorage.getItem('curSpeed');
+		curSpeed=curSpeed==null?1:parseInt(curSpeed);
+		curSpeed.innerHTML=curSpeed;
+		initBlock();
+		curTimer=setInterval('moveDown',500/curSpeed)
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+  </script>  
+ </body>
+</html>

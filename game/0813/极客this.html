@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+
+  </style>
+  <script>
+  //this谁调指谁
+  var a=100;
+	function test(){
+		console.log(this.a)//100
+	}
+	test();//window.test			
+//////////////////////////////////////	
+	function test1(){
+		var b=10;				//b=10	=>10
+		return function(){
+			console.log(this.b)//undefined
+		}
+	}
+	test1()()//window.test1			
+								
+				window.c=1000
+				function test2(){
+					var c=10;
+					return function(){
+						console.log(this.c)//1000
+					}
+				}
+				test2()()//window.test2
+				
+//////////////////////////////////////////
+var m=55;
+var obj={
+	m:5,
+	obj1:function(){
+		console.log(this.m)
+	}
+}
+	obj.obj1()//5
+//	obj1()//错误
+  </script>
+ </head>
+ <body>
+  
+
+ </body>
+</html>

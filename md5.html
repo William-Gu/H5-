@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>MD5</title>
+</head>
+<body>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/md5.js"></script>
+    <script>
+    var html="http://m.libaclub.com/newService/interface.php?act=get_recommend_topic&page=1&page_size=30&sessionhash=d119f395d99714c0324faf7a05ac03d5"
+    var key="1bc29b36f623ba82aaf6724fd3b16718";
+    var data=$.md5(html+key)
+    var url=html+"&sign="+data;
+    console.log(url)
+        //http://m.libaclub.com/newService/interface.php?act=get_topic_info&sessionhash=47f7f05563d4f35b5081e4a6c3402540&topic_id=9464811&sign=aeb4abbd01a677d0452dadc73b0f6225
+    </script>
+</body>
+</html>

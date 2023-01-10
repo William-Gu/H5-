@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+ 
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+		<canvas id='canvas' width='400' height='300' style='background:#aaa'>
+
+	</canvas>
+<script>
+	var cvs=document.getElementById('canvas');
+	var ctx=cvs.getContext('2d');
+	//绘制路径
+	ctx.beginPath();
+	ctx.moveTo(50,50);
+	ctx.lineTo(50,200);
+	ctx.lineTo(100,200);
+	//闭合(1)stroke()	(2)line()
+	ctx.closePath();
+	ctx.fillStyle='blue'
+	ctx.strokeStyle='#aaa';
+	ctx.lineWidth='0';
+	ctx.fill()
+	console.log(ctx)
+	ctx.stroke();
+</script>
+</body>
+</html>

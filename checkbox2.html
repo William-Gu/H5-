@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<style>
+	#checkbox {display: none; }
+	.cb-label {
+	  height: 100px;
+	  width: 100px;
+	  background: #f9f9f9;
+	  border: 10px solid #cfcece;
+	  position: relative;
+	  display: inline-block;
+	  box-sizing: border-box;
+	  transition: border-color ease 0.2s;
+	  cursor: pointer; 
+	}
+  .cb-label::before, .cb-label::after {
+    box-sizing: border-box;
+    position: absolute;
+    height: 0;
+    width: 20px;
+    background: #fff;
+    display: inline-block;
+    transform-origin: left top;
+    content: '';
+    transition: opacity ease 0.5s; 
+  }
+  .cb-label::before {
+    top: 76px;
+    left: 31px;
+    transform: rotate(-135deg); 
+  }
+  .cb-label::after {
+    top: 45px;
+    left: 0px;
+    transform: rotate(-45deg); 
+  }
+
+	input[type=checkbox]:checked + .cb-label,
+	.cb-label.checked {
+	  background: #658db5;
+	  border-color: #658db5; 
+	}
+  input[type=checkbox]:checked + .cb-label::after,
+  .cb-label.checked::after {
+    border-color: #fff;
+    height: 35px;
+    animation: dothabottomcheck 0.2s ease 0s forwards; 
+  }
+  input[type=checkbox]:checked + .cb-label::before,
+  .cb-label.checked::before {
+    border-color: #fff;
+    height: 100px;
+    animation: dothatopcheck 0.4s ease 0s forwards; 
+  }
+	@keyframes dothabottomcheck {
+	  0% {height: 0;}
+	  100% {height: 35px;} 
+	}
+	@keyframes dothatopcheck {
+	  0% {height: 0;}
+	  50% {height: 0;}
+	  100% {height: 70px;} 
+	}
+</style>
+</head>
+<body>
+	<div class="cb-container">
+	    <input type="checkbox" id="checkbox">
+	    <label for="checkbox" class="cb-label"></label>
+	</div>
+</body>
+</html>

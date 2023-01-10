@@ -1,0 +1,90 @@
+：
+1. this：*当前正在调用方法的对象*
+   window.a=10;
+    var foo={
+        a:20,
+        bar:function(){
+          var a=30; //局部
+          c=100;
+          return this.a;
+        }
+     }
+     foo.bar();  //this-->foo   this.a-->foo.a //20
+   var fun=foo.bar;
+   window.fun();// this-->window this.a-->window.a //10
+   *this和定义的对象无关，仅和调用时使用的对象有关。*
+
+2. prototype：存储多个对象共享的属性值或方法的父对象
+    1. 所有方法都有prototype属性，指向自己的原型对象
+    2. 所有对象都有__proto__属性，指向自己的父对象
+         构造函数创建出的对象：
+                __proto__指向构造函数的prototype对象
+         使用直接量创建的单个对象： 
+                __proto__指向Object的prototype对象
+3. 继承：子对象直接使用父对象的属性和功能。
+     原型继承：将一个子对象的原型设置为另一个父对象
+     如何实现继承：    
+         1. 修改单个对象的__proto__属性
+                Object.setPrototypeOf(子对象,父对象)
+         2. 批量修改多个对象的原型:
+              条件：在使用构造函数创建对象前
+              构造函数.prototype=父对象
+    var obj=new 构造函数(属性值1,属性值2,...);
+            1. new 创建新对象
+            2. 调用构造函数初始化对象中的属性和方法
+            3. 将对象的__proto__设置为构造函数的原型
+    4. 将新创建的对象的地址，存入全局变量obj中。
+
+作业：重写Number类型的toFixed方法，支持正负参数，返回数字类型。
+
+var n=123.456;
+var m=555.555;
+
+console.log(n.toFixed(-2));//100
+            new Number(n).toFixed(-2)
+console.log(m.toFixed(2));//555.56
+            new Number(m).toFixed(-2)
+
+作业：
+重写String类型的trim方法：去掉字符串开头和结尾的空格
+    console.log("\t A B \t".trim());//"A B" 
+重写Date类型的format方法：格式化输出日期,返回字符串
+    console.log(new Date().format());
+               "2015年8月13日 星期四 上午 10:17"      
+
+检查两对象之间的继承关系：
+   父对象.isPrototypeOf(子对象)
+   检查"父对象"是否是"子对象"的上级
+   "子对象"是否继承自"父对象"
+
+鄙视题：如何判断变量引用的是数组对象：几种
+   1. typeof(): 对数组类型无效
+   2. 对象 instanceof 构造函数名：有效！
+        *对象的原型链中是否包含指定构造函数的原型*
+        *判断对象是否由指定构造函数创建——不严谨*
+   3. 调用Object.prototype中的toString方法
+        1. 先找到要调用的目标方法
+           Object.prototype.toString
+        2. 使用call临时替换调用toString方法的对象为数组
+           Object.prototype.toString.call(arr);
+      其中call：在调用方法时，临时更改调用方法的对象   
+	
+	4. ES5:Array.isArray(arr); 问题：兼容性不好
+   总结：3+4
+   function checkArray(arr){
+   	if(typeof(Array.isArray)==="function"){
+       	    return Array.isArray(arr);
+        }else{
+            return Object.prototype.toString.call(arr)
+                   ==="[object Array]";
+        }
+   }
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+	
+  </style>
+  <script>
+  //按值传递
+	  function test(num){
+		  var num=num+1;
+		  return num;
+	  }
+	  var num=1;
+	  console.log(test())//Nan
+	   console.log(test(num))//2
+	   console.log(num)//1
+	   
+//按引用传递
+function test1(obj){
+	obj.age='20';
+	console.log('inner',obj)//inner Object {name: "xiaoming", age: "20"}
+}
+var obj={name:'xiaoming'}
+test1(obj)
+console.log('outer',obj)//outer Object {name: "xiaoming", age: "20"}
+console.log(obj)		//Object {name: "xiaoming", age: "20"}
+console.log(test1(2))
+console.log(test1(obj))
+//按引用：object array
+//按值：string number boolean
+  </script>
+ </head>
+ <body>
+  
+
+ </body>
+</html>

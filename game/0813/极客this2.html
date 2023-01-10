@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+
+  </style>
+  <script>
+	  this.m=1000;
+	  var obj={
+		  m:100,
+		  test:function(){
+			  console.log(this.m);
+			  return function(){
+				  console.log(this.m);
+			  }
+		  }
+	  };
+	  				(obj.test())()//100
+									//1000
+	var t=obj.test()
+	t()//100
+		//1000
+	
+	obj.test()//100
+	///////////////////////////
+	this.a=1000;
+	function test(){this.a=1};
+	test.prototype.geta=function(){return this.a}
+	var p=new test;
+	console.log(p.geta())//1
+	
+	////////////////////
+	function ceshi(){this.a=1};
+	ceshi.prototype.a=100;
+	var k=new ceshi;
+	console.log(k)		//ceshi {a: 1}
+	console.log(k.a)	//1
+	console.log(ceshi)
+  </script>
+ </head>
+ <body>
+  
+
+ </body>
+</html>

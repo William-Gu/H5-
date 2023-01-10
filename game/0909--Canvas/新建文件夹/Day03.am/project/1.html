@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 创建canvas </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<!--canvas创建-->
+	<canvas id="cvs" width="400" height="300"
+					style="border:3px solid skyblue;">
+		您的浏览器不支持画布
+	</canvas>
+	<script>
+		//使用画布绘图
+		//1.获取canva的dom对象
+		var cvs = document.getElementById('cvs');
+		//2.获取画布的上下文:使用画布的getContext方法获取
+		var ctx = cvs.getContext('2d');
+		//3.绘制矩形：fillRect、strokeRect
+		//fillRect:绘制填充矩形fillRect(x,y,w,h)
+		ctx.fillStyle = 'blue';//设置填充色
+		ctx.fillRect(50,50,50,50);//坐标50,50绘制宽高均为50矩形
+		//strokeRect:描边矩形
+		ctx.strokeStyle = 'red';
+		ctx.strokeRect(150,150,100,100);
+		//clearRect:清除画布矩形范围
+		ctx.clearRect(50,50,25,25);
+	</script>
+ </BODY>
+</HTML>

@@ -1,0 +1,99 @@
+回顾：
+1.H5表单验证
+    1）验证属性
+        a)required
+	b)pattern
+	c)min/max 数字最大、最小值
+	d)minlength/maxlength 注意：版本较低的浏览器minlength有支持性问题，maxlength重现不了
+	e)validity(重点）：对应对象ValidityState
+	f)novalidate:用在form上，让整个表单不校验，测试时或者想要使用其他校验框架时
+	g)formnovalidate:用在submit按钮上，让这个提交按钮可以不校验就能提交，用于测试
+    2）验证事件invalid
+        只有不合法的表单元素才触发该事件，只关心不合法元素，不关心具体错误类型时才能使用。
+    3）validity属性（必须掌握）
+	a)valueMissing --- required
+	b)patternMismatch --- pattern
+	c)rangeOverflow --- max
+	d)rangeUnderflow --- min
+	e)tooShort --- minlength
+	f)tooLong --- maxlength
+	g)stepMismatch --- step
+	h)typeMismatch --- email/url
+	i)badInput --- number在里面输入字符串
+	j)valid --- 总开关属性，上面这些只要有一个为true，它就为false，代表校验失败了
+	k)customError --- 当elem.setCustomValidity('必须输入用户名')以后，它即为true。注意如果校验通过必须执行elem.setCustomValidity(''),才能使校验通过
+    4）验证方法
+        a)setCustomValidity(str)：设置默认提示信息
+	b)checkValidity()：手动触发校验，form.checkValidity()校验所有元素，相当于点击submit，input.checkValidity()仅校验该input。结果是bool。
+
+Canvas：
+1.什么是canvas
+    1）和所有DOM一样，拥有自己属性、方法和事件的新标签
+    2）拥有多种绘图方法（绘图API），javascript能够调用这些方法在网页上完成各种绘图任务：图表（线图、饼图、柱状图、蜘蛛图），图像密集型应用（h5游戏）
+
+2.怎么创建canvas
+    <canvas width="400" height="300" style="...."></canvas>
+    注意事项：宽高只能作为属性设置，如果作为css设置会出现坐标混乱
+
+3.上下文的获取
+    canvas.getContext('2d');
+
+4.绘制填充矩形、描边矩形
+    ctx.fillStyle = '#f00';   ('red')
+    ctx.fillRect(x,y,w,h);
+    ctx.strokeStyle = '#f00'; ('blue')
+    ctx.strokeRect(x,y,w,h);
+
+5.清除矩形clearRect
+    ctx.clearRect(x,y,w,h);
+
+6.绘制动画
+    1）setInterval()
+    2）clearRect()
+    3）代表元素状态的变量，比如x或者y
+
+7.设置线性渐变：linearGradient
+   步骤：
+   1）创建渐变对象lg = ctx.createLinearGradient(x1,y1,x2,y2)
+   2）增加渐变色lg.addColorStop(0.2,'red');注意：至少两个
+   3）应用渐变对象ctx.fillStyle = lg;
+   4）绘制填充矩形ctx.fillRect(x,y,w,h);
+
+8.设置径向渐变：radialGradient
+   步骤：定义了两个圆形
+   1）创建渐变对象lg = ctx.createRadialGradient(x1,y1,r1,x2,y2,r2)
+   2）增加渐变色lg.addColorStop(0.2,'red');注意：至少两个
+   3）应用渐变对象ctx.fillStyle = lg;
+   4）绘制填充矩形ctx.fillRect(x,y,w,h);
+
+9.绘制路径（重点）
+   1）绘制直线：
+   步骤：
+   a)开始路径ctx.beginPath()
+   b)绘制路径ctx.moveTo(x,y)/ctx.lineTo(x,y)
+   c)闭合路径ctx.closePath()/ctx.stroke()/ctx.fill()
+      注意：ctx.stroke()/ctx.fill()都有闭合的功能
+     
+   练习：绘制箭头
+   练习：绘画板
+
+10.绘制圆弧
+    arc(x,y,r,startAngel,endAngel,anticlockwise);
+    x,y:决定圆弧所在圆的圆心
+    r:圆弧所在圆的半径
+    startAngel,endAngel：起始和结束弧度
+    anticlockwise：布尔值，是否以逆时针绘制，默认值false即顺时针绘制
+
+    *弧度和角度的转换公式：
+    角度 = 弧度 * 180 / Math.PI;
+    弧度 = 角度*Math.PI/180;
+
+练习：小球动画--8.html
+
+11.物理引擎box2d.js
+
+练习：绘制饼图10million = $10000000
+某公司2015季度销售统计[10,20,30,8]
+
+12.chart.js
+这是一款非常强大的基于HTML5的Canvas的图标库

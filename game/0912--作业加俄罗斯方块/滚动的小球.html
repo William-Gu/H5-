@@ -1,0 +1,41 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+  </style>
+  <script>
+
+  </script>
+ </head>
+ <body>
+	 <canvas id='canvas' width='400' height='400' style='border:1px solid red'>
+	 	您的浏览器版本太低，请升级您的浏览器版本
+	 </canvas>
+<script>
+var cvs=document.getElementById('canvas')
+var ctx=cvs.getContext('2d');
+var x=0,y=0,dx=2,dy=3
+var rx=100;ry=20
+
+window.onload=function(){
+	setInterval(cvs.onmousemove=function (event){
+		ctx.fillStyle='red';
+		ctx.clearRect(0,0,cvs.width,cvs.height);
+		if(x+dx>cvs.width||x+dx<0){dx*=-1};
+		if(y+dy>cvs.height||y+dy<0){dy*=-1};
+		x+=dx;y+=dy
+		ctx.beginPath();
+		ctx.arc(x,y,5,0,Math.PI*2)
+		ctx.fill()
+	} ,20)}
+
+</script>
+ </body>
+</html>

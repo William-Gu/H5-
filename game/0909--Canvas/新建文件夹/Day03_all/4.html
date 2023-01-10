@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 路径 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<canvas id="cvs" width="400" height="300"
+					style="border:1px solid black;"></canvas>
+	<script>
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		//3.绘制直线
+		//1)开始路径beginPath()
+		ctx.beginPath();
+		//2)移动到点1：moveTo(x1,y1)
+		ctx.moveTo(50,50);
+		//3)划线到点2：lineTo(x2,y2)
+		ctx.lineTo(100,100);
+		ctx.lineTo(150,50);
+		//ctx.lineTo(50,50);
+		//关闭路径
+		//ctx.closePath();
+		//4)描边stroke()
+		ctx.fillStyle = 'red';
+		ctx.stroke();
+		ctx.fill();
+
+		//画箭头
+		var p1 = {x:200,y:150};
+		var p2 = {x:300,y:150};
+		ctx.beginPath();
+		ctx.moveTo(p1.x,p1.y);
+		//箭头轴
+		ctx.lineTo(p2.x,p2.y);
+		//箭头上半部分
+		ctx.lineTo(p2.x-10,p2.y-5);
+		//移动回p2
+		ctx.moveTo(p2.x,p2.y);
+		//箭头下半部分
+		ctx.lineTo(p2.x-10,p2.y+5);
+		//描边
+		ctx.stroke();
+	</script>
+ </BODY>
+</HTML>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 绘制圆弧 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<canvas id="cvs" width="400" height="300"
+					style="border:1px solid black;">
+	</canvas>
+	<script>
+
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		
+		//1)圆弧也是路径，第一步beginPath
+		ctx.beginPath();		
+		
+		//3)绘制圆弧
+		//Math.PI代表180度，所以360度是Math.PI*2
+		//逆时针旋转了360度以后实际上画了一个圆
+		//最后一个参数默认为true代表逆时针旋转		
+		//1)移动的圆心上
+		ctx.moveTo(200,150);
+
+		//2)画圆弧：圆弧的起点设置0度，对应的是表盘的三点钟方向		
+		ctx.arc(200,150,50,Math.PI/2,Math.PI*2/3,true);
+
+		//3)描边或填充
+		ctx.fill();
+
+	</script>
+ </BODY>
+</HTML>

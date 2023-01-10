@@ -1,0 +1,41 @@
+<template id="nameComponentTemplate">
+    <style>
+        .outer {
+            border: 2px solid brown;
+            border-radius: 1em;
+            background: red;
+            font-size: 20pt;
+            width: 12em;
+            height: 7em;
+            text-align: center;
+        }
+        .boilerplate {
+            color: white;
+            font-family: sans-serif;
+            padding: 0.5em;
+        }
+        .littleFontSize{     font-size: 15pt; }
+        .name {
+            color: black;
+            background: white;
+            font-family: "宋体";
+            font-size: 30pt;
+            padding-top: 0.2em;
+        }
+    </style>
+    <div class="outer">
+        <div class="boilerplate">
+            你好，欢迎来到
+        </div>
+        <div class="name">
+            <content></content>
+        </div>
+        <div class="boilerplate littleFontSize"> 国内首家在桌面浏览器中正式应用HTML 5技术的技术网站。     </div>
+    </div>
+</template>
+<script>
+    var shadow = document.querySelector('#nameComponent').webkitCreateShadowRoot();
+    var template = document.querySelector('#nameComponentTemplate');
+    shadow.appendChild(template.content);
+    template.remove();
+</script>

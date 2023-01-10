@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{
+            font-size:20px;
+            height:50px;
+            width:50px;
+            border:1px solid red;
+            position: absolute;left:0;
+        }
+    </style>
+</head>
+<body>
+<div id="d"></div>
+<script>
+    var obj = document.getElementById('d');
+    var data={
+        around:0,
+        bind:function(node,type,func){
+            if (node.addEventListener) {
+                node.addEventListener(type, func, false);
+            } else if (node.attachEvent) {
+                node.attachEvent("on" + type, func);
+            } else {
+                node["on" + type] = func;
+            }
+        }
+    };
+
+    var drag=function(){
+        var a1=true,date1=0,date2=0,x=0,x1=0,x2=0,x3=0,x4=0,step=0,steps=0,more=0,temp,little,speed,far;
+        function d(e){
+            switch (e.type){
+                case "touchstart":
+                    e.preventDefault();
+                    clearInterval(little);
+                    steps=data.around;
+                    a1=true;
+                    break;
+                case "touchmove":
+                    e.preventDefault();
+                    if(a1){
+                        date1=new Date();
+                        if(e.pageX){
+                            //iphone,speed控制速度
+                            x3=e.pageX;
+                            speed=3;
+                        }else{
+                            //android
+                            x3=e.targetTouches[0].pageX;
+                            speed=4;
+                        }
+                    };
+                    x1= e.pageX||e.targetTouches[0].pageX;
+                    setTimeout(function(){
+                        x2=e.pageX||e.targetTouches[0].pageX;
+                        step=x1-x2;
+                        steps+=(step/speed);
+                        if(steps>=360){steps=1}
+                        if(steps<=0){steps=360}
+                        data.around=steps;
+                    },30);
+                    a1=false;
+                    break;
+                case "touchend":
+                    e.preventDefault();
+
+                    if(date1){
+                        date2=new Date();
+                        temp=date2-date1;
+                        x4=e.pageX||e.changedTouches[0].pageX
+                        far=(x4-x3)/temp;
+                        little=setInterval(function(){
+                            far=far-(far*0.05);
+                            if(far>0&&far<0.1||far<0&&far>-0.1){
+                                clearInterval(little)
+                            }
+                            more=far*2;
+                            data.around+=more;
+                            console.log("far:"+far);
+                        },30)
+                    }
+                    date1=0;date2=0;x=0;
+                    break;
+            }
+        }
+        return {
+            dragStar:function(){
+                data.bind(document, "touchstart", d);
+                data.bind(document, "touchmove", d);
+                data.bind(document, "touchend", d);
+            }
+        }
+    }();
+    drag.dragStar();
+
+    setInterval(function(){
+        obj.innerHTML=data.around;
+        obj.setAttribute('style',"left:"+data.around+"px");
+    },10);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{font-size:20px;height:150px;margin:50px auto;border:1px solid red}
+    </style>
+    <script src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div id="d"></div>
+<script>
+    var obj = document.getElementById('d');
+    var around={
+        x1:0,x2:0,temp:0,step:0,w:document.body.clientWidth,
+        move:function(e){
+            that=this;
+            this.x1 = e.pageX;
+
+            setTimeout(function () {
+                that.x2 = e.pageX;
+                that.step = that.x1 - that.x2;
+                that.temp = that.temp + that.step / 2;
+                if (that.temp >= 360) {that.temp = 1;}
+                if (that.temp <= 0) {that.temp = 360;}
+            }, 30);
+            return that.temp;
+        }
+    };
+
+    window.document.addEventListener('touchmove', function (e) {
+        event.preventDefault();
+        obj.innerHTML=around.move(e)
+    });
+
+
+    /*var around={
+        x1:0,x2:0,temp:0,step:0,w:document.body.clientWidth,
+        move:function(e){
+            event.preventDefault();
+            around.x1 = e.offsetX;
+            setTimeout(function () {
+                around.x2 = e.offsetX;
+                around.step = around.x1 - around.x2;
+                around.temp = around.temp + around.step / 2;
+                if (around.temp >= 360) {around.temp = 1;}
+                if (around.temp <= 0) {around.temp = 360;}
+            }, 30);
+            return around.temp;
+        }
+    };
+    obj.addEventListener('mousemove', function (e) {
+        console.log(around.move(e))
+    })
+*/
+</script>
+</body>
+</html>

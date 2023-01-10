@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 小球动画 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<canvas id="cvs" width="200" height="200"
+					style="border:1px solid black;">
+	</canvas>
+	<script>
+
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		
+		//3.绘制饼图
+		//某公司2015季度销售统计[10,20,30,8]
+		var data = [10,20,30,8];
+		//1.计算各季度百分比
+		//1)每个饼所占比例为360度的百分之sx
+		//2)后面的饼图的起始位置应该是它前面所有饼图的结束位置
+		//3)后面的饼图的结束位置应该是它前面所有饼图的结束位置再加上自己的角度		
+		var s1 = 10/68;
+		var s2 = 20/68;
+		var s3 = 30/68;
+		var s4 = 8/68;
+
+		//圆心
+		var cx = cvs.width/2;
+		var cy = cvs.height/2;
+		var cr = cvs.width/2;
+		
+		//2.分别绘制各个饼图
+		//绘制第一个季度s1
+		ctx.fillStyle = 'red';
+		ctx.beginPath();
+		ctx.moveTo(cx,cy);
+		ctx.arc(cx,cy,cr,0,Math.PI*2*s1);
+		ctx.fill();
+
+		//绘制第二个季度s2
+		ctx.fillStyle = 'orange';
+		ctx.beginPath();
+		ctx.moveTo(cx,cy);
+		ctx.arc(cx,cy,cr,Math.PI*2*s1,Math.PI*2*(s1+s2));
+		ctx.fill();
+
+		//绘制第三个季度s3
+		ctx.fillStyle = 'blue';
+		ctx.beginPath();
+		ctx.moveTo(cx,cy);
+		ctx.arc(cx,cy,cr,Math.PI*2*(s1+s2),Math.PI*2*(s1+s2+s3));
+		ctx.fill();
+
+		//绘制第四个季度s4
+		//它的结束位置是Math.PI*2*(s1+s2+s3+s4)
+		//但是上面的(s1+s2+s3+s4)==1，所以可以省略
+		ctx.fillStyle = 'purple';
+		ctx.beginPath();
+		ctx.moveTo(cx,cy);
+		ctx.arc(cx,cy,cr,Math.PI*2*(s1+s2+s3),Math.PI*2);
+		ctx.fill();
+
+		ctx.fillStyle = 'white';
+		ctx.fillText('一季度',120,120);
+	</script>
+ </BODY>
+</HTML>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+ 
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+	<canvas id='canvas' width=300 height=500 style='background:#ddd'>
+	</canvas>
+<script>
+	var cvs=document.getElementById('canvas');
+	var ctx=cvs.getContext('2d');
+	ctx.moveTo(200,150);
+	ctx.lineTo(200,200)
+	ctx.arc(200,150,50,Math.PI/2,Math.PI*2/3,false)
+	ctx.lineTo(200,150)
+	ctx.fill()
+//	ctx.beginPath()
+//	ctx.fillRect(100,50,200,200);
+
+
+</script>
+</body>
+</html>

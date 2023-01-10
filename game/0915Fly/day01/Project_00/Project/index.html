@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE>飞机大战</TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<!-- <div>元素的作用：用于完成页面布局 -->
+	<div style="margin: 0 auto; width: 480px; height: 650px; background: #323232; text-align: center; vertical-align: middle">
+		<!-- 
+				主要实用<canvas>元素完成游戏画面
+				* 自定义高度和宽度，具有默认高度和宽度
+				* Canvas的高度和宽度与div元素一致
+		-->
+		<canvas id="canvas" width="480" height="650"></canvas>
+	</div>
+	<script>
+		// 一、获取Canvas对象
+		// 1. 获取页面中的<canvas>元素
+		var canvas = document.getElementById("canvas");
+		// 2. 调用getContext('2d')方法，获取画布对象
+		var context = canvas.getContext('2d');
+		
+		// 二、完成游戏初始化
+		// 1. 定义出划分的五个阶段
+		var START = 0;			// 游戏欢迎阶段
+		var STARTTING = 1;	// 动画过渡阶段
+		var RUNNING = 2;		// 游戏运行阶段
+		var PAUSE = 3;			// 游戏暂停阶段
+		var GAMEOVER = 4;	// 游戏结束阶段
+		// 2. 定义一个变量，用于代表当前的阶段
+		var status = START;
+		// 3. 获取画布的高度和宽度，用于后面定位计算的
+		var width = 480;		// 画布的宽度
+		var height = 650;	// 画布的高度
+		// 4. 初始化我方飞机的生命值（值为3）
+		var life = 3;
+		// 5. 初始化游戏分数（值为0）
+		var score = 0;
+
+		// 三、游戏欢迎阶段
+
+		// 四、动画过渡阶段
+
+		// 五、游戏运行阶段
+
+		// 六、游戏暂停阶段
+
+		// 七、游戏结束阶段
+
+	</script>
+ </BODY>
+</HTML>

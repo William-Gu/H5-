@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 小球动画 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<canvas id="cvs" width="300" height="600"
+					style="border:1px solid black;">
+	</canvas>
+	<script>
+
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		
+		const r = 50;//半径定义为常量，一经定义不再改变
+		var y = r;//小球圆心的y值
+		var speed = 3;//小球下落速度
+
+		//3.创建定时器
+		setInterval(function(){
+			//0)清除画布
+			ctx.clearRect(0,0,cvs.width,cvs.height);
+
+			//判断是否到了临界值
+			if(y >= cvs.height-r || y < r){
+				speed *= -1;
+			}
+
+			//计算出最新的小球的位置
+			y += speed;
+
+			//1)圆弧也是路径，第一步beginPath
+			ctx.beginPath();
+			
+			//2)设置径向填充
+			var rg = ctx.createRadialGradient(150,y,0,150,y,r+20);
+			rg.addColorStop(0,'red');
+			rg.addColorStop(1,'black');
+			ctx.fillStyle = rg;
+			
+			//3)绘制圆弧
+			//Math.PI代表180度，所以360度是Math.PI*2
+			//逆时针旋转了360度以后实际上画了一个圆
+			//最后一个参数默认为true代表逆时针旋转		
+			ctx.arc(150,y,r,0,2*Math.PI);
+			
+			//4)描边或填充
+			ctx.fill();
+		},20);
+	</script>
+ </BODY>
+</HTML>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="author" content="Yeeku.H.Lee(CrazyIt.org)" />
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+	<title>... </title>
+	</script>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+
+<script>
+var rows = 20;
+var cols = 14;
+var cellSize = 24;
+var canvas;
+var ctx;
+var curScore = 0;
+var curSpeed = 1;
+var maxScore = 0;
+var curTimer;
+var isPlaying = true;
+var currentFall;
+var stat = [];
+for (var i=0;i<rows;i++){
+	stat[i]=[];
+	for (var j =0;j<cols;j++){
+		stat[i][j]=0;
+	}
+}
+colors = ["#fff", "#f00","#0f0","#00f","#c60","#f0f","#0ff","#609"];
+var blockArr = [
+	// Z
+	[
+		{x: cols/2-1,y:0,color:1},
+		{x: cols/2,y:0,color:1},
+		{x: cols/2,y:1,color:1},
+		{x: cols/2+1,y:1,color:1}
+	],
+	// 反Z
+	[
+		{x: cols/2+1,y:0,color:2},
+		{x: cols/2,y:0,color:2},
+		{x: cols/2,y:1,color:2},
+		{x: cols/2-1,y:1,color:2}
+	],
+	// 田
+	[
+		{x: cols / 2 - 1 , y:0 , color:3},
+		{x: cols / 2 , y:0 ,  color:3},
+		{x: cols / 2 - 1 , y:1 , color:3},
+		{x: cols / 2 , y:1 , color:3}
+	],
+	// L
+	[
+		{x: cols / 2 - 1 , y:0 , color:4},
+		{x: cols / 2 - 1, y:1 , color:4},
+		{x: cols / 2 - 1 , y:2 , color:4},
+		{x: cols / 2 , y:2 , color:4}
+	],
+	// J
+	[
+		{x: cols / 2  , y:0 , color:5},
+		{x: cols / 2 , y:1, color:5},
+		{x: cols / 2  , y:2, color:5},
+		{x: cols / 2 - 1, y:2, color:5}
+	],
+	// 条
+	[
+		{x: cols / 2 , y:0 , color:6},
+		{x: cols / 2 , y:1 , color:6},
+		{x: cols / 2 , y:2 , color:6},
+		{x: cols / 2 , y:3 , color:6}
+	],
+	//  土
+	[
+		{x: cols / 2 , y:0 , color:7},
+		{x: cols / 2 - 1 , y:1 , color:7},
+		{x: cols / 2 , y:1 , color:7},
+		{x: cols / 2 + 1, y:1 , color:7}
+	]
+];
+var initBlock = function(){
+	var rand = Math.floor(Math.random() * blockArr.length);
+	currentFall = [
+		{x:blockArr[rand][0].x,y:blockArr[rand][0].y,color:blockArr[rand][0].color},
+		{x:blockArr[rand][1].x,y:blockArr[rand][1].y,color:blockArr[rand][1].color},
+		{x:blockArr[rand][2].x,y:blockArr[rand][2].y,color:blockArr[rand][2].color},
+		{x:blockArr[rand][3].x,y:blockArr[rand][3].y,color:blockArr[rand][3].color}
+	];
+};
+var createCanvas = function(rows , cols , cellWidth, cellHeight){
+	canvas = document.createElement("canvas");
+	canvas.width = cols * cellWidth;
+	canvas.height = rows * cellHeight;
+	canvas.style.border = "1px solid black";
+	ctx=canvas.getContext('2d'); 
+	ctx.beginPath();
+	for(var i=1;i<rows;i++){
+		ctx.moveTo(0,i*cellSize);
+		ctx.lineTo(cols*cellSize,i*cellSize);
+	}
+	for(var i=1;i<cols;i++){
+		ctx.moveTo(i*cellSize,0);
+		ctx.lineTo(i*cellSize,rows*cellSize);
+	}
+	ctx.closePath(); 
+	ctx.strokeStyle="#aaa";
+	ctx.lineWidth=0.3;
+	ctx.stroke();
+}
+var drawBlock = function(){
+	for(var i=0; i<rows;i++ ){
+		for (var j=0;j<cols;j++ ){
+			if(stat[i][j] != 0){
+				ctx.fillStyle = colors[stat[i][j]];
+				ctx.fillRect(j*cellSize+1,i*cellSize+1,cellSize-2,cellSize-2);
+			}else{
+				ctx.fillStyle = 'white';
+				ctx.fillRect(j*cellSize+1,i*cellSize+1,cellSize-2,cellSize-2);
+			}
+		}
+	}
+}
+window.onload = function(){
+	createCanvas(rows,cols,cellSize,cellSize);
+	document.body.appendChild(canvas);
+	var tmpStatus=localStorage.getItem("stat");
+	stat=tmpStatus==null?stat:JSON.parse(tmpStatus);
+	drawBlock();
+	curScore=localStorage.getItem("curScore");
+	curScore=curScore==null?0:parseInt(curScore);
+	maxScore=localStorage.getItem("maxScore");
+	maxScore=maxScore==null?0:parseInt(maxScore);
+	curSpeed=localStorage.getItem("curSpeed");
+	curSpeed=curSpeed==null?1:parseInt(curSpeed);
+	initBlock();
+	curTimer=setInterval("moveDown();",500/curSpeed);
+}
+var lineFull=function(){
+	for(var i=0;i<rows;i++){
+		var flag=true;
+		for(var j=0;j<cols;j++ ){
+			if(stat[i][j]==0){
+				flag = false;
+				break;
+			}
+		}
+		if(flag){
+			
+			for (var k=i;k>0;k--){
+				for (var l=0;l<cols;l++){
+					stat[k][l]=stat[k-1][l];
+				}
+			}
+			drawBlock();
+		}
+	}
+}
+var moveDown = function(){
+	var canDown = true;
+	for(var i = 0 ; i < currentFall.length ; i++){
+		if(currentFall[i].y >= rows - 1){
+			canDown = false;
+			break;
+		}
+		if(stat[currentFall[i].y + 1][currentFall[i].x] != 0){
+			canDown = false;
+			break;
+		}
+	}
+	if(canDown){
+		for(var i=0;i<currentFall.length;i++){
+			var cur = currentFall[i];
+			ctx.fillStyle = 'white';
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			cur.y++;
+		}
+		for(var i=0;i<currentFall.length;i++){
+			var cur = currentFall[i];
+			ctx.fillStyle = colors[cur.color];
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+	}else{
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			if(cur.y<2){		
+				isPlaying=false;
+				return;
+			}
+			stat[cur.y][cur.x]=cur.color;
+		}
+		lineFull();
+		initBlock();
+	}
+}
+var moveLeft = function(){
+	var canLeft = true;
+	for(var i = 0 ; i < currentFall.length ; i++){
+		if(currentFall[i].x <= 0){
+			canLeft = false;
+			break;
+		}
+		if(stat[currentFall[i].y][currentFall[i].x - 1] != 0){
+			canLeft = false;
+			break;
+		}
+	}
+	if(canLeft){
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			ctx.fillStyle = 'white';
+			ctx.fillRect(cur.x * cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			cur.x--;
+		}
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			ctx.fillStyle = colors[cur.color];
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+	}
+}
+var moveRight=function(){
+	var canRight=true;
+	for(var i=0;i<currentFall.length;i++){
+		if(currentFall[i].x>=cols-1){
+			canRight=false;
+			break;
+		}
+		if(stat[currentFall[i].y][currentFall[i].x+1]!=0){
+			canRight=false;
+			break;
+		}
+	}
+	if(canRight){
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			ctx.fillStyle='white';
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			cur.x++;
+		}
+		for(var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			ctx.fillStyle = colors[cur.color];
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+	}
+}
+var rotate=function(){
+	var canRotate=true;
+	for (var i=0;i<currentFall.length;i++){
+		var preX=currentFall[i].x;
+		var preY=currentFall[i].y;
+		if(i!=2){
+			var afterRotateX=currentFall[2].x+preY-currentFall[2].y;
+			var afterRotateY=currentFall[2].y+currentFall[2].x-preX;
+			if(stat[afterRotateY][afterRotateX+1]!=0){
+				canRotate = false;
+				break;
+			}
+			if(afterRotateX<0||stat[afterRotateY-1][afterRotateX]!=0){
+				moveRight();
+				afterRotateX=currentFall[2].x+preY-currentFall[2].y;
+				afterRotateY=currentFall[2].y+currentFall[2].x-preX;
+				break;
+			}
+			if(afterRotateX>=cols-1||stat[afterRotateY][afterRotateX+1]!=0){
+				moveLeft();
+				afterRotateX=currentFall[2].x+preY-currentFall[2].y;
+				afterRotateY=currentFall[2].y+currentFall[2].x-preX;
+				break;
+			}
+		}
+	}
+	if(canRotate){
+		for (var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			ctx.fillStyle='white';
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+		for (var i=0;i<currentFall.length;i++){
+			var preX=currentFall[i].x;
+			var preY=currentFall[i].y;
+			if(i!=2){
+				currentFall[i].x =currentFall[2].x+preY-currentFall[2].y;
+				currentFall[i].y =currentFall[2].y+currentFall[2].x-preX;
+			}
+		}
+		for (var i=0;i<currentFall.length;i++){
+			var cur=currentFall[i];
+			ctx.fillStyle=colors[cur.color];
+			ctx.fillRect(cur.x*cellSize+1,cur.y*cellSize+1,cellSize-2,cellSize-2);
+		}
+	}
+}
+window.focus();
+window.onkeydown = function(evt){
+	switch(evt.keyCode){
+		case 40:
+			if(!isPlaying)
+				return;
+			moveDown();
+			break;
+		case 37:
+			if(!isPlaying)
+				return;
+			moveLeft();
+			break;
+		case 39:
+			if(!isPlaying)
+				return;
+			moveRight();
+			break;
+		case 38:
+			if(!isPlaying)
+				return;
+			rotate();
+			break;
+	}
+}
+</script>
+</body>
+</html>

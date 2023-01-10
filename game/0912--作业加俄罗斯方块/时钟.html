@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+  line{stroke:black}
+  text{font-size: 26px}
+  </style>
+  <script>
+	  
+  </script>
+ </head>
+ <body>
+	 <svg id='clock' width='400' height='400'>
+	 	<circle id='face' cx='200' cy='200' r='200' fill='white'stroke='black' stroke-width='3'/>
+	 	<line x1='200' y1='0' x2='200' y2='10'/>
+	 	<line x1='400' y1='200' x2='390' y2='200'/>
+	 	<line x1='0' y1='200' x2='10' y2='200'/>
+	 	<line x1='200' y1='400' x2='200' y2='390'/>
+	 	<text x='190' y='40'>12</text>
+	 	<text x='190' y='380'>6</text>
+	 	<text x='20' y='210'>9</text>
+	 	<text x='370' y='210'>3</text>
+	 	<line id='sh' x1='200' y1='230' x2='200' y2='30' stroke-width='2'/> 
+ 	 	<line id='mh' x1='200' y1='220' x2='200' y2='50' stroke-width='5'/> 
+	 	<line id='hh' x1='200' y1='210' x2='200' y2='80' stroke-width='8'/>
+	 </svg>
+<script>
+updateTime()
+	  function updateTime(){
+		  var now=new Date();
+		  
+		  var second=now.getSeconds();
+		  var secondangle=second*6;
+		  var secondhand=document.getElementById('sh');
+		  secondhand.setAttribute('transform','rotate('+secondangle+',200,200)');
+		  
+		  var min=now.getMinutes();
+		  var minangle=min*6;
+		  var minhand=document.getElementById('mh');
+		  minhand.setAttribute('transform','rotate('+minangle+',200,200)');
+		  
+		  var hour=(now.getHours()%12+min/60);
+		  var hourangle=hour*30;
+		  var hourhand=document.getElementById('hh');
+		  hourhand.setAttribute('transform','rotate('+hourangle+',200,200)');
+		  
+		  
+		  setTimeout(updateTime,500)
+	  }
+</script>
+ </body>
+</html>

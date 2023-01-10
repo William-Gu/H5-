@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 动画 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<canvas id="cvs" width="400" height="300"
+					style="border:1px solid black;"></canvas>
+	<button onclick="stopAnimation()">停止动画</button>
+	<script>
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		//3.开始绘制动画
+		//1)设置定时器:时间间隔24帧 fps ，25fps，29fps
+		var timer = setInterval(draw,20);//40ms 代表 25fps 20ms代表约60fps
+		
+		//x代表矩形当前的水平坐标值，默认值0
+		var x = 0;
+		var speed = 1;//speed代表方块移动速度
+
+		//draw函数是绘制函数，它每秒钟执行约60次
+		function draw(){
+			//1.清空画布
+			ctx.clearRect(0,0,cvs.width,cvs.height);
+
+			//2.动态改变x
+			x = x+speed;
+
+			//3.绘制填充矩形，y值计算公式：(wh-rh)/2
+			ctx.fillRect(x,125,50,50);
+		}      
+		//点击停止按钮，执行该函数，停止上面的定时器即可
+		function stopAnimation(){
+			clearInterval(timer);
+		}
+	</script>
+ </BODY>
+</HTML>

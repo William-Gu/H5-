@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title> new document </title>
+  <meta name="generator" content="editplus" />
+  <meta name="author" content="" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+ </head>
+
+ <body>
+  <canvas id="cvs" width="200" height="400"
+	        style="border:1px solid black;">
+		不支持canvas
+	</canvas>
+	<script type="text/javascript">
+	    //获取画布上下文
+		var ctx = document.getElementById("cvs").getContext("2d");
+
+		//开始动画渲染
+		setInterval(draw,20);
+
+		var y=50;//初始高度
+		var speed=4;//小球速度
+		
+		function draw(){
+			//清空画布
+			ctx.clearRect(0,0,200,400);
+			
+			//判断一下是不是已经超出了底部范围
+			if(y >= 350 || y < 50){
+				speed *= -1;
+			}
+			//改变y值
+			y += speed;
+
+			//绘制小球
+			ctx.beginPath();
+			ctx.arc(100,y,50,0,2*Math.PI,false);
+			var rg = ctx.createRadialGradient(100,y,0,100,y,60);
+			rg.addColorStop(0,"red");
+			rg.addColorStop(1,"black");
+			ctx.fillStyle = rg;
+			ctx.fill();
+
+		}
+	</script>
+ </body>
+</html>

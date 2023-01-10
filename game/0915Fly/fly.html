@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<title>Plane War</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+	div{margin:0 auto;
+	width:480px;
+	height:650px;
+	background:#323232;
+	text-align:center;
+	vertical-align:middle}
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+	<div>
+		<canvas width='480' height='650' id='canvas'></canvas>
+	</div>
+<script>
+	var canvas=document.getElementById('canvas');
+	var context=canvas.getContext('2d');
+	//五个阶段
+	var START=0;	//
+	var STARTING=1;	//
+	var RUNNING=2;	//
+	var PAUSE=3;	//
+	var GAMEOVER=4;	//
+	//当前状态
+	var status=START;
+	var width=canvas.width;
+	var height=canvas.height;
+	var life=3;
+	var score=0;
+
+//1.欢迎界面
+	var bg=new Image();
+	bg.src='background.png'
+
+	function Game(config){
+		this.imgs=config.imgs;
+		this.height=config.height;
+		this.width=config.width;
+		this.frame=config.frame;
+		this.frames=config.frames;
+		this.paint=function(){}
+		this.step=function(){}
+	}
+	var SKY={
+		imgs:bg,
+		width:480,
+		height:852
+	}
+	function Sky(config){
+		Game.call(this,config)
+		this.x1=0;
+		this.y1=0;
+		this.x2=0;
+		this.y2=-this.height;
+		this.paint=function(){
+				context.drawImage(this.imgs,this.x1,this.y1);
+				context.drawImage(this.imgs,this.x2,this.y2);
+		};
+		this.step=function(){
+				this.y1++;this.y2++;
+				if(this.y1==this.height){this.y1=-this.height};
+				if(this.y2==this.height){this.y2=-this.height};
+		}
+	}
+	var sky=new Sky(SKY);
+	var copyright=new Image();
+	copyright.src='shoot_copyright.png';
+/************************************************/
+// 2.过渡界面
+canvas.onclick=function(){
+	if(status==START){
+		status=STARTING;
+	}
+}
+var loadings=[];
+loadings[0]=new Image();
+loadings[0].src='game_loading1.png'
+loadings[1]=new Image();
+loadings[1].src='game_loading2.png'
+loadings[2]=new Image();
+loadings[2].src='game_loading3.png'
+loadings[3]=new Image();
+loadings[3].src='game_loading4.png'
+
+var LOADING={
+	height:38,
+	imgs:loadings,
+	width:186,
+	frame:0,
+	frames:loadings.length
+}
+function Loading(config){
+	Game.call(this,config)
+	this.x=0;
+	this.y=height-this.height;
+	this.paint=function(){
+		context.drawImage(this.imgs[this.frame],this.x,this.y)
+	}
+	this.count=0
+	this.step=function(){
+		this.count++;
+		if(this.count%2==0){
+			this.frame++;
+		}
+		if(this.frame==this.frames){
+			status=RUNNING;
+		}
+	}
+}
+var loading=new Loading(LOADING);
+
+var heros=[];
+heros[0]=new Image();heros[0].src='hero1.png'
+heros[1]=new Image();heros[1].src='hero2.png'
+heros[2]=new Image();heros[2].src='hero_blowup_n1.png'
+heros[3]=new Image();heros[3].src='hero_blowup_n2.png'
+heros[4]=new Image();heros[4].src='hero_blowup_n3.png'
+heros[5]=new Image();heros[5].src='hero_blowup_n4.png'
+
+var HERO={
+	imgs:heros,
+	width:99,
+	height:124,
+	frame:0,
+	frames:2
+}
+function Hero(config){
+	Game.call(this,config)
+	this.frames=config.frames;
+	this.x=(width-this.width)/2;
+	this.y=height-this.height-30;
+	this.paint=function(){
+		context.drawImage(this.imgs[this.frame],this.x,this.y)
+	}
+	this.step=function(){
+		if(this.down){
+			this.frame++;
+			if(this.frame==this.imgs.length){
+				if(life==0){
+					status=GAMEOVER
+				}else{
+					hero=new Hero(HERO)
+				}
+			}
+		}else{
+			this.frame++;
+			if(this.frame==2){
+				this.frame=0;
+			}
+		}
+	}
+	this.count = 0;
+	this.shoot = function(){
+		this.count++;
+		if(this.count%5 == 0){
+			bullets[bullets.length] = new Bullet(BULLET);
+		}
+	}
+	this.down=false;
+	this.bang=function(){
+		life--;
+		this.down=true;
+		this.frame=this.frames;
+	}
+}
+var hero=new Hero(HERO);
+canvas.onmousemove=function(event){
+	if( status==RUNNING){
+		hero.x=event.offsetX-hero.width/2
+		hero.y=event.offsetY-hero.height/2
+	}
+}
+
+var e1=[];
+	e1[0]=new Image();e1[0].src='enemy1.png';
+	e1[1]=new Image();e1[1].src='enemy1_down1.png';
+	e1[2]=new Image();e1[2].src='enemy1_down2.png';
+	e1[3]=new Image();e1[3].src='enemy1_down3.png';
+	e1[4]=new Image();e1[4].src='enemy1_down4.png';
+var e2=[];
+	e2[0]=new Image();e2[0].src='enemy2.png';
+	e2[1]=new Image();e2[1].src='enemy2_down1.png';
+	e2[2]=new Image();e2[2].src='enemy2_down2.png';
+	e2[3]=new Image();e2[3].src='enemy2_down3.png';
+	e2[4]=new Image();e2[4].src='enemy2_down4.png';
+var e3=[];
+	e3[0]=new Image();e3[0].src='enemy3_n1.png';
+	e3[1]=new Image();e3[1].src='enemy3_n2.png';
+	e3[2]=new Image();e3[2].src='enemy3_down1.png';
+	e3[3]=new Image();e3[3].src='enemy3_down2.png';
+	e3[4]=new Image();e3[4].src='enemy3_down3.png';
+	e3[5]=new Image();e3[5].src='enemy3_down4.png';
+	e3[6]=new Image();e3[6].src='enemy3_down5.png';
+	e3[7]=new Image();e3[7].src='enemy3_down6.png';
+var E1={imgs:e1,width:57,height:51,frame:0,frames:1,type:1,life:1} 
+var E2={imgs:e2,width:69,height:95,frame:0,frames:1,type:2,life:3} 
+var E3={imgs:e3,width:169,height:258,frame:0,frames:2,type:3,life:10} 
+
+function Enemy(config){
+		Game.call(this,config);
+		this.type=config.type;
+		this.life=config.life;
+		this.x=Math.random()*(width-this.width);
+		this.y=-this.height;
+		this.paint=function(){
+			context.drawImage(this.imgs[this.frame],this.x,this.y)
+		}
+		this.canDelete=false
+		this.step=function(){
+			if(this.down){
+				this.frame++;
+				if(this.frame == this.imgs.length){
+					this.canDelete = true;
+				}
+			}else{
+				this.frame++;
+				this.frame = this.frame%this.frames;
+			}
+			switch(this.type){
+				case 1:this.y+=10;break;
+				case 2:this.y+=5;break;
+				case 3:this.y+=2;break;
+			}
+		}
+		this.isOut=function(){
+			return this.y>=height
+		}
+		this.checkHit=function(compent){
+			return compent.x+compent.width/2>this.x&&
+			compent.y+compent.height/2<this.y+this.height&&
+			compent.x+compent.width/2<this.x+this.width&&
+			compent.y+compent.height/2>this.y
+		}
+		this.down=false
+		this.bang=function(){
+			this.life--;
+			if(this.life==0){
+				switch (this.type){
+						case 1:	 // 小飞机	
+							score++;
+							break;
+						case 2: // 中飞机
+							score+=5;
+							break;
+						case 3: // 大飞机
+							score+=30;
+							break;
+				}
+				this.down=true;
+				this.frame=this.frames;
+			}
+		}
+}
+var enemies=[];
+function enemiesEnter(){
+	var num=Math.floor(Math.random()*50)
+	if(num<=7){
+		enemies[enemies.length]=new Enemy(E1)
+	}else if(num==8){
+		enemies[enemies.length]=new Enemy(E2)
+	}else if(num==9){
+		if(enemies.length > 0 &&enemies[0].type!=3){
+			enemies.splice(0,1,new Enemy(E3))
+		}
+	}
+}
+function enemiesPaint(){
+	for(var i=0;i<enemies.length;i++){
+		enemies[i].paint()
+	}
+}
+function enemiesStep(){
+	for(var i=0;i<enemies.length;i++){
+		enemies[i].step()
+	}
+}
+function enemiesDel(){
+		for(var i=0;i<enemies.length;i++){
+			if(enemies[i].isOut()||enemies[i].canDelete){
+					enemies.splice(i,1);
+				}
+		}
+}
+var zidan=new Image()
+zidan.src='bullet1.png';
+var BULLET={
+	imgs:zidan,
+	width:9,
+	height:21
+}
+function Bullet(config){
+	Game.call(this,config);
+	this.x=hero.x+hero.width/2-this.width/2;
+	this.y=hero.y-this.height;
+	this.paint=function(){
+		context.drawImage(this.imgs,this.x,this.y)
+	}
+	this.step=function(){
+		this.y-=10
+	}
+	this.isOut=function(){
+		return this.y+this.height<0;
+	}
+}
+var bullets=[]
+function bulletsPaint(){
+	for(i=0;i<bullets.length;i++){
+		bullets[i].paint()
+	}
+}
+function bulletsStep(){
+	for(i=0;i<bullets.length;i++){
+		bullets[i].step()
+	}
+}
+function checkHit(){
+	for(var i=0;i<enemies.length;i++){
+		if(enemies[i].checkHit(hero) && !hero.down){
+			enemies[i].bang();
+			hero.bang()
+		}
+		for(var j=0;j<bullets.length;j++){
+			if(enemies[i].checkHit(bullets[j])){
+				enemies[i].bang();
+				bullets[j].canDelete=true;
+			}
+		}
+	}
+}
+
+
+function drawText(){
+	context.font='bold 24px 黑体'
+	context.textAlign='left'
+	context.textBaseline='hanging';
+	context.fillText('SCORE:'+score,15,10)
+	context.fillText('LIFE:'+life,350,10)
+}
+
+
+canvas.onmouseout=function(){
+	if(status==RUNNING){status=PAUSE}
+}
+canvas.onmouseover=function(){
+	if(status==PAUSE){status=RUNNING}
+}
+
+var pauseImg=new Image()
+pauseImg.src='game_pause_nor.png';
+
+
+	setInterval(function(){
+		sky.paint();
+		sky.step();
+		switch(parseInt(status)){
+			case START:
+				context.drawImage(copyright,15,150);
+				break;
+			case STARTING:
+				loading.paint();
+				loading.step()
+				break;
+			case RUNNING:
+				hero.paint();
+				hero.step();
+
+				hero.shoot();
+				bulletsPaint();
+				bulletsStep();
+				checkHit();
+
+				enemiesEnter();
+				enemiesPaint();
+				enemiesStep();
+				enemiesDel();
+
+				drawText()
+				break;
+			case PAUSE:
+				hero.paint();
+				bulletsPaint();
+				enemiesPaint();
+				drawText();
+				context.drawImage(pauseImg,10,10);
+
+				break;
+			case GAMEOVER:
+				bulletsPaint();
+				enemiesPaint();
+				drawText();
+				
+				context.font='bold 70px 黑体'
+				context.fillText('Game Over',100,250)
+				break;
+		}
+	},100)
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

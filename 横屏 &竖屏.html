@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@media screen and (orientation:portrait) {/* 竖屏 */}
+@media screen and (orientation:landscape) {/* 横屏 */}
+</style>
+<link rel="stylesheet" media="all and (orientation:portrait)" href="..." />
+<link rel="stylesheet" media="all and (orientation:landscape)" href="..." />
+</head>
+<body>
+  
+<script>
+var mql = window.matchMedia("(orientation: portrait)");
+function onMatchMeidaChange(mql){
+    if(mql.matches) {
+        // 竖屏
+    }else {
+        // 横屏
+    }
+}
+onMatchMeidaChange(mql);
+mql.addListener(onMatchMeidaChange);
+</script>
+</body>
+</html>

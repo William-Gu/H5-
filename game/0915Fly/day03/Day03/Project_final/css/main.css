@@ -1,0 +1,9 @@
+/* 当前CSS文件用于定义游戏的样式 */
+div {
+	margin : 0 auto; 
+	width : 480px; 
+	height : 650px; 
+	background : #323232; 
+	text-align : center; 
+	vertical-align : middle;
+}

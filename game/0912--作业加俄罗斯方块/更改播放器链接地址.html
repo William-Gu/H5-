@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+  </style>
+  <script>
+  
+  </script>
+  <script>
+  var fileVideo=document.getElementById('fileVideo');
+  var btn=document.getElementById('btn')
+  var myvideo=document.getElementById('myvideo')
+  
+ 	function $(id){return document.getElementById(id)}; 
+	window.addEventListener('load',inital)
+	
+	function inital(){
+		 filevideo=$('filevideo')  
+		btn.addEventListener('click',btnclick)	
+	}
+	function btnclick(event){
+			var file=fileVideo.value
+			var url=file.substring(file.lastIndexOf('\\')+1)
+			console.log(url)
+			myvideo.src=url;
+	}
+</script>
+ </head>
+ <body>
+ 	<input type='file' id='fileVideo'>
+ 	<input type='button' id='btn' value='播放'>
+	<video src='1.mp4' width='400' height='300' controls id='myvideo' poster='loading.gif'>该视频不能播放</video>
+
+
+
+ </body>
+</html>

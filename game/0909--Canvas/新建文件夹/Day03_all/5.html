@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 路径 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<!--mousedown鼠标按下时触发一次
+		   mousemove鼠标移动时触发n次
+		   mouseup鼠标释放时触发一次
+	-->
+	<canvas id="cvs" width="400" height="300"
+					style="border:1px solid black;"
+					onmousedown="onMouseDown(event)"
+					onmousemove="onMouseMove(event)"
+					onmouseup="onMouseUp(event)">
+	</canvas>
+	<script>
+
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		
+		//3.绘图板		
+		var isMouseDown = false;//声明是否按下鼠标
+		
+		//当鼠标按下时才开始绘制
+		function onMouseDown(event){
+			//1.beginPath和moveTo
+			ctx.beginPath();
+			ctx.moveTo(event.offsetX,event.offsetY);
+
+			//2.把鼠标按下的事标识出来
+			isMouseDown = true;
+		}
+		//该事件会不断的被触发，因此新的event会携带最新的鼠标位置
+		function onMouseMove(event){
+			//这里需要一个标示符来决定是否绘制
+			if(isMouseDown){
+				//鼠标按下才画画
+				ctx.lineTo(event.offsetX,event.offsetY);
+				ctx.stroke();
+			}
+		}
+		function onMouseUp(event){
+			//2.把鼠标释放标识出来
+			isMouseDown = false;			
+		}
+	</script>
+ </BODY>
+</HTML>

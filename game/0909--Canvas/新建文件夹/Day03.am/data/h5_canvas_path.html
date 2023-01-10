@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<title>路径</title>
+	<meta charset="utf-8"/>
+ </head>
+
+ <body>
+	<canvas id="cvs" width="400" height="200"
+	        style="border:1px solid black;">
+		不支持canvas
+	</canvas>
+	<script type="text/javascript">
+		//获取画布上下文
+		var ctx = document.getElementById("cvs").getContext("2d");
+		
+		ctx.strokeStyle = "skyblue";
+		ctx.lineWidth = 10;
+
+		//绘制直线
+		//1.开始路径
+		ctx.beginPath();
+		//2.移动方法移动到
+		ctx.moveTo(50,50);
+		//3.画直线到
+		ctx.lineTo(100,100);
+		ctx.lineTo(150,75);
+
+		//4.描边		
+		ctx.stroke();
+		ctx.fill();
+
+		//路径矩形
+		ctx.beginPath();
+		ctx.rect(100,100,100,100);
+		ctx.stroke();
+		ctx.fill();
+
+		//绘制圆形
+		/*ctx.beginPath();
+		ctx.arc(300,100,50,0,Math.PI*2,false);
+		ctx.fill();
+
+		//圆弧
+		ctx.beginPath();
+		ctx.arc(300,100,50,0,Math.PI/180*25,false);
+		ctx.lineTo(300,100);
+		ctx.fill();*/
+		
+		//小球
+		ctx.beginPath();
+		ctx.arc(300,100,50,0,2*Math.PI,false);
+		var rg = ctx.createRadialGradient(300,100,0,300,100,60);
+		rg.addColorStop(0,"red");
+		rg.addColorStop(1,"black");
+		ctx.fillStyle = rg;
+		ctx.fill();
+
+	</script>
+ </body>
+</html>

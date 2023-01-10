@@ -1,0 +1,50 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+	
+  </style>
+  <script>
+//作用域
+  //~将后面的函数转换成表达式
+    var j=100;
+  ~(function test(){
+	  console.log(j)
+  })()						//100
+ 
+   var q=100;
+  (function test(){
+	  console.log(q)
+  })()						//100
+  
+//   var i=100;
+//  function test(){
+//	  console.log(i)
+//  }()						//错误
+
+//闭包
+var k=100
+  function test(){
+	  var j=10;
+	  k=10;
+	  return function(){
+		  return k
+	  };
+	  console.log(j)
+  }
+  var t=test()
+	console.log(t())			//1000
+  </script>
+ </head>
+ <body>
+  
+
+ </body>
+</html>

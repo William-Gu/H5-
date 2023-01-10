@@ -1,0 +1,232 @@
+
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+  *{margin:0;padding:0}
+  body{background: #000}
+#start{width:120px;height:58px;border:1px solid #fff;position: absolute;top:202px;left:90px;cursor:pointer}
+  </style>
+  <script>
+
+  </script>
+ </head>
+ <body>
+ <canvas id='canvas' width='300' height='500' style='border:1px solid #fff'> 
+ 
+ </canvas>
+ <div id='start'></div>
+<script>
+		var cvs=document.getElementById('canvas');
+		var ctx=cvs.getContext('2d');
+		ctx.fillStyle='#ED6D00'
+		ctx.fillRect(90,200,120,60);
+		ctx.fillStyle='#fff';
+		ctx.font='bold 24px Arial';
+		var startSize=ctx.measureText('开始游戏').width
+		ctx.fillText('开始游戏',(cvs.width-startSize)/2,240);
+	var start=document.getElementById('start')
+	
+	start.onclick=function(){
+		start.remove();
+		ctx.clearRect(0,0,cvs.width,cvs.height);
+		ctx.strokeStyle='#666';
+		ctx.moveTo(0,20);ctx.lineTo(300,20);
+		ctx.moveTo(0,40);ctx.lineTo(300,40);
+		ctx.moveTo(0,60);ctx.lineTo(300,60);
+		ctx.moveTo(0,80);ctx.lineTo(300,80);
+		ctx.moveTo(0,100);ctx.lineTo(300,100);
+		ctx.moveTo(0,120);ctx.lineTo(300,120);
+		ctx.moveTo(0,140);ctx.lineTo(300,140);
+		ctx.moveTo(0,160);ctx.lineTo(300,160);
+		ctx.moveTo(0,180);ctx.lineTo(300,180);
+		ctx.moveTo(0,200);ctx.lineTo(300,200);
+		ctx.moveTo(0,220);ctx.lineTo(300,220);
+		ctx.moveTo(0,240);ctx.lineTo(300,240);
+		ctx.moveTo(0,260);ctx.lineTo(300,260);
+		ctx.moveTo(0,280);ctx.lineTo(300,280);
+		ctx.moveTo(0,300);ctx.lineTo(300,300);
+		ctx.moveTo(0,320);ctx.lineTo(300,320);
+		ctx.moveTo(0,340);ctx.lineTo(300,340);
+		ctx.moveTo(0,360);ctx.lineTo(300,360);
+		ctx.moveTo(0,380);ctx.lineTo(300,380);
+		ctx.moveTo(0,400);ctx.lineTo(300,400);
+		ctx.moveTo(0,420);ctx.lineTo(300,420);
+		ctx.moveTo(0,440);ctx.lineTo(300,440);
+		ctx.moveTo(0,460);ctx.lineTo(300,460);
+		ctx.moveTo(0,480);ctx.lineTo(300,480);
+		ctx.moveTo(20,0);ctx.lineTo(20,500);
+		ctx.moveTo(40,0);ctx.lineTo(40,500);
+		ctx.moveTo(60,0);ctx.lineTo(60,500);
+		ctx.moveTo(80,0);ctx.lineTo(80,500);
+		ctx.moveTo(100,0);ctx.lineTo(100,500);
+		ctx.moveTo(120,0);ctx.lineTo(120,500);
+		ctx.moveTo(140,0);ctx.lineTo(140,500);
+		ctx.moveTo(160,0);ctx.lineTo(160,500);
+		ctx.moveTo(180,0);ctx.lineTo(180,500);
+		ctx.moveTo(200,0);ctx.lineTo(200,500);
+		ctx.moveTo(220,0);ctx.lineTo(220,500);
+		ctx.moveTo(240,0);ctx.lineTo(240,500);
+		ctx.moveTo(260,0);ctx.lineTo(260,500);
+		ctx.moveTo(280,0);ctx.lineTo(280,500);
+		ctx.stroke();
+		game();
+	}
+function game(){
+/* 	输出图形 */
+		var topSpace=0;
+		var random=Math.floor(Math.random()*10)
+		if(random>=8){
+			/* 	|  */
+			var a8=setInterval(function(){
+				ctx.fillStyle='#000';
+				ctx.fillRect(140,-20+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(140,-20+topSpace,20,20);
+				
+				ctx.fillStyle='red';
+				ctx.fillRect(140,0+topSpace,20,80);
+				topSpace+=20;
+				if(topSpace==440){clearInterval(a8)}
+			},500)
+		}else if(random>=6){
+			var a6=setInterval(function(){
+				/* 	L */
+				ctx.fillStyle='#000';
+				ctx.fillRect(140,-20+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(140,-20+topSpace,20,20);
+				ctx.fillStyle='#000';
+				ctx.fillRect(160,20+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(160,20+topSpace,20,20);
+			
+				ctx.fillStyle='#A50900';
+				ctx.beginPath();
+				ctx.moveTo(140,0+topSpace);
+				ctx.lineTo(140,60+topSpace);
+				ctx.lineTo(180,60+topSpace);
+				ctx.lineTo(180,40+topSpace);
+				ctx.lineTo(160,40+topSpace);
+				ctx.lineTo(160,0+topSpace);
+				ctx.fill();
+				topSpace+=20;
+				if(topSpace==460){clearInterval(a6)}
+			},500)
+		}else if(random>=4){
+			var a4=setInterval(function(){
+				/* 	T  */
+				ctx.fillStyle='#000';
+				ctx.fillRect(140,-20+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(140,-20+topSpace,20,20);
+				ctx.fillStyle='#000';
+				ctx.fillRect(160,0+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(160,0+topSpace,20,20);
+				
+				ctx.fillStyle='#F7DA00';
+				ctx.beginPath();
+				ctx.moveTo(140,0+topSpace);
+				ctx.lineTo(140,60+topSpace);
+				ctx.lineTo(160,60+topSpace);
+				ctx.lineTo(160,40+topSpace);
+				ctx.lineTo(180,40+topSpace);
+				ctx.lineTo(180,20+topSpace);
+				ctx.lineTo(160,20+topSpace);
+				ctx.lineTo(160,0+topSpace);
+				ctx.fill();
+				topSpace+=20;
+				if(topSpace==460){clearInterval(a4)}
+			},500)
+		}else if(random>=2){
+			/* Z */
+			var a2=setInterval(function(){
+				ctx.fillStyle='#000';
+				ctx.fillRect(140,-20+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(140,-20+topSpace,20,20);
+				ctx.fillStyle='#000';
+				ctx.fillRect(160,0+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(160,0+topSpace,20,20);
+				
+				ctx.fillStyle='#996633';
+				ctx.beginPath();
+				ctx.moveTo(140,0+topSpace);
+				ctx.lineTo(140,40+topSpace);
+				ctx.lineTo(160,40+topSpace);
+				ctx.lineTo(160,60+topSpace);
+				ctx.lineTo(180,60+topSpace);
+				ctx.lineTo(180,20+topSpace);
+				ctx.lineTo(160,20+topSpace);
+				ctx.lineTo(160,0+topSpace);
+				ctx.fill();
+				topSpace+=20;
+				if(topSpace==460){clearInterval(a2)}
+			},500)
+		}else{
+			/* |_ */
+			var a0=setInterval(function(){
+				ctx.fillStyle='#000';
+				ctx.fillRect(140,-20+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(140,-20+topSpace,20,20);
+				ctx.fillStyle='#000';
+				ctx.fillRect(160,0+topSpace,20,20);
+				ctx.strokeStyle='#666';
+				ctx.strokeRect(160,0+topSpace,20,20);
+				
+				
+				ctx.fillStyle='#fff';
+				ctx.beginPath();
+				ctx.moveTo(140,0+topSpace);
+				ctx.lineTo(140,40+topSpace);
+				ctx.lineTo(180,40+topSpace);
+				ctx.lineTo(180,20+topSpace);
+				ctx.lineTo(160,20+topSpace);
+				ctx.lineTo(160,0+topSpace);
+				ctx.fill();
+				topSpace+=20;
+				if(topSpace==480){clearInterval(a0)}
+			},500)
+		}
+}
+	
+/* 按键 */
+	window.onkeydown=function(event){
+		var key=event.which||event.keyCode||event.charCode;
+		
+		switch(key){
+			case 37:
+				
+				break;
+			case 38:
+				
+				break;
+			case 39:
+				
+				break;
+			case 40:
+				
+				break;
+		};
+/* 		取消默认行为 */
+		if(event.preventDefault){
+			event.preventDefault
+		}else{
+			event.returnValue=false
+		}
+	}
+	
+	
+</script>
+ </body>
+</html>

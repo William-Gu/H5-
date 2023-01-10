@@ -1,0 +1,46 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+  </style>
+  <script src='jquery-1.11.1.js'></script>
+ </head>
+ <body>
+<form action='' method='' id='myform'>
+	昵称：<input type='text' id='uname' required pattern="[a-zA-Z0-9]{6,12}">
+	<span id='unameshow'>英文、数字及下划线，6-12位</span>
+	<br/>
+	<input type='submit' value='提交' id='submit'>
+</form>
+<script>
+	var uname=document.getElementById('uname')
+	var myform=document.getElementById('myform')
+	var unameshow=document.getElementById('unameshow')
+	
+	$('#submit').click(onsubmit);
+	function onsubmit(){
+		if(uname.validity.valid){
+ 			myform.submit() 
+		}else{
+			if(uname.validity.valueMissing){
+				unameshow.innerHTML='请输入用户名';
+				unameshow.placeholder='英文、数字及下划线，6-12位'
+			}else if(uname.validity.patternMismatch){
+				unameshow.innerHTML='用户名格式错误'
+				unameshow.placeholder='英文、数字及下划线，6-12位'
+			}
+			
+		}
+	}
+
+</script>
+ </body>
+</html>
+

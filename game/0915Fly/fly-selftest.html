@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<title>Plane War</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+	div{margin:0 auto;
+	width:480px;
+	height:650px;
+	background:#323232;
+	text-align:center;
+	vertical-align:middle}
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+	<div>
+		<canvas width='480' height='650' id='canvas'></canvas>
+	</div>
+<script>
+	var cvs=document.getElementById('canvas');
+	var ctx=cvs.getContext('2d');
+	var START=0;
+	var bgwidth=cvs.width;
+	var bgheight=cvs.height
+	var bg=new Image();
+	bg.src='background.png';
+	
+	function Bg(){
+		this.bg=bg
+		var width=480;
+		var height=852;
+		var x=0;var y=0
+		this.paint=function(){
+			ctx.drawImage(bg,x,y)
+			ctx.drawImage(bg,x,y-height)
+		}
+		this.step=function(){
+			y++;
+			if(y==height){y=-height}
+		}
+	}
+
+	var Bg1=new Bg()
+	setInterval(function(){
+		Bg1.paint();
+		Bg1.step()
+
+	},2)
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

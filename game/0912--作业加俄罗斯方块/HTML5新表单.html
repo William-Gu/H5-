@@ -1,0 +1,51 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type='text/css'>
+  </style>
+  <script>
+  
+  </script>
+ </head>
+ <body>
+  <datalist id='mylist'>
+  	<option value='北京'></option>
+  	<option value='上海'></option>
+  	<option value='天津'></option>
+  	<option value='重庆'></option>
+  </datalist>
+  <input type='text' list='mylist'>
+  <br/>
+  <progress min='0' max='100' value='2' id='pro'></progress>
+  <br/>
+  <meter min='0' max='100' value='0' low='60' hight='80' optimum='100'></meter>
+  
+  <meter min='0' max='100' value='30' low='30' hight='80' optimum='75'></meter>
+  
+  <form oninput='x.value=parseInt(a.value)+parseInt(b.value)'>
+  	<input type='range' id='a' oninput='console.log(a.value)'>+
+  	<input type='number' id='b' value='0'>=
+  	<output id='x' for='a b'></output>
+  </form>
+    
+    
+<script>
+ var progress=document.getElementById('pro');
+ var timer=setInterval(function(){
+ 	if(progress.value=='100'){
+	 	clearInterval(timer)
+	}else{
+ 		progress.value+=2
+ 	}
+ },200)
+
+</script>
+ </body>
+</html>

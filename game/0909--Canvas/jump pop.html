@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+ 
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+	<canvas id='canvas' width=300 height=500 style='background:#ddd'>
+	</canvas>
+<script>
+	var cvs=document.getElementById('canvas');
+	var ctx=cvs.getContext('2d');
+	const r=50;
+	var y=r;
+	var speed=3;
+	setInterval(function(){
+		ctx.clearRect(0,0,cvs.width,cvs.height)
+		ctx.beginPath()
+		var rg=ctx.createRadialGradient(150,y,0,150,y,r+20);
+		rg.addColorStop(0,'red')
+		rg.addColorStop(1,'black')
+		ctx.fillStyle=rg
+		y+=speed
+		ctx.arc(150,y,50,0,2*Math.PI)
+		ctx.fill()
+		if(y>=cvs.height-r || y<r){
+			speed*=-1
+		}
+		
+
+
+
+
+	},20)
+
+</script>
+</body>
+</html>

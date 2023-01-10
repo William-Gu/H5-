@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>渐变色</title>
+ </head>
+ <body>
+  <canvas id="cvs" width="400" height="200" style="border:4px solid skyblue">
+	您的浏览器不支持画布
+   </canvas>
+   <script type="text/javascript">
+	//得到canvas的上下文context
+	var cvs = document.getElementById("cvs");
+	var ctx = cvs.getContext("2d");
+
+	//绘制渐变
+	//red/orange/yellow/green/cyan/blue/purple
+	var lg = ctx.createLinearGradient(0,0,100,100);
+	lg.addColorStop(0.3,"red");
+	lg.addColorStop(0.7,"blue");
+	ctx.fillStyle = lg;
+	ctx.fillRect(0,0,100,100);
+   </script>
+ </body>
+</html>

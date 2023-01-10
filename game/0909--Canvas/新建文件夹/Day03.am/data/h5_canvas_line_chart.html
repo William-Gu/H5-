@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<title>路径</title>
+	<meta charset="utf-8"/>
+ </head>
+
+ <body>
+	<canvas id="cvs" width="400" height="200"
+	        style="border:1px solid black;">
+		不支持canvas
+	</canvas>
+	<script type="text/javascript">
+		//获取画布上下文
+		var ctx = document.getElementById("cvs").getContext("2d");
+		
+		var data = [1000,1500,500,800,600,2000,3000,1000,1500,500,800,600];
+		var max = Math.max.apply(this,data);
+
+		//坐标原点
+		var originX=50,originY=170;
+		//x轴顶点
+		var rightX=350,rightY=170;
+		//y轴顶点
+		var topX=50,topY=20;
+		//x轴最大值点
+		var rightMx=330,rightMy=170;
+		//y轴的最大值点
+		var topMx=50,topMy=40;
+
+		//绘制x轴
+		ctx.beginPath();
+		ctx.moveTo(originX,originY);
+		ctx.lineTo(rightX,rightY);
+		//ctx.stroke();
+
+		//绘制箭头
+		ctx.lineTo(rightX-10,rightY-4);		
+		ctx.moveTo(rightX,rightY);
+		ctx.lineTo(rightX-10,rightY+4);		
+
+		//绘制y轴
+		ctx.moveTo(originX,originY);
+		ctx.lineTo(topX,topY);
+		
+		//绘制箭头
+		ctx.lineTo(topX-4,topY+10);		
+		ctx.moveTo(topX,topY);
+		ctx.lineTo(topX+4,topY+10);		
+		
+		//绘制x轴刻度
+		var tickX = Math.ceil((rightMx-originX)/(data.length-1));
+		for(var i=1; i<data.length; i++){
+			ctx.moveTo(originX+i*tickX,originY);
+			ctx.lineTo(originX+i*tickX,originY-8);
+		}
+
+		//绘制y轴刻度
+		var tickY = Math.ceil((originY - topMy)/4);
+		for(var j=1; j<=4; j++){
+			ctx.moveTo(originX,originY-j*tickY);
+			ctx.lineTo(originX+8,originY-j*tickY);
+		}
+
+		//绘制线图
+		var yTotal = originY-topMy;
+		for(var k=0; k<data.length; k++){
+			var posX = originX + k*tickX;
+			var posY = originY - yTotal*data[k]/max;
+			if(k==0)
+				ctx.moveTo(posX,posY);
+			else
+				ctx.lineTo(posX,posY);
+		}
+		
+		ctx.stroke();
+	</script>
+ </body>
+</html>

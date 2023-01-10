@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+
+</head>
+<style>
+
+</style>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js"></script>
+    <script src="js/browser.js"></script>
+    <script src="js/es6-promise.min.js"></script>
+<script type="text/babel">
+function setTimeouts(){
+    setTimeout(function(){
+        console.log("a")
+    },1000)
+}
+function ending( ){
+    console.log("结束")
+}
+setTimeouts().then(function () {
+  return ending();
+});
+</script>
+
+
+</script>
+</body>
+</html>

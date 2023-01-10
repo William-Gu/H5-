@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+ 
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+	<canvas id='canvas' width='300' height='200' style='background:#bbb;border:10px dotted #b3a'>
+		您的浏览器不支持画布canvas
+	</canvas>
+<script>
+	var cvs=document.getElementsByTagName('canvas')[0]
+	var ctx=cvs.getContext('2d')
+	//fillRect	填充矩形(x,y,w,h)
+	//strokeRect	描边矩形
+	ctx.fillRect(90,70,10,20);
+	ctx.fillRect(200,70,10,20);
+	ctx.strokeRect(100,50,100,100);
+	ctx.fillStyle='#69a';
+	ctx.fillRect(110,70,30,30);
+	ctx.fillRect(160,70,30,30);
+	ctx.strokeRect(130,120,40,10);
+	ctx.fillRect(165,125,5,5);
+	ctx.fillRect(165,135,5,5);
+	ctx.fillRect(165,145,5,5);
+	ctx.fillStyle='black'
+	ctx.fillRect(115,35,5,15);
+	ctx.fillRect(185,35,5,15);
+	ctx.clearRect(120,85,10,10)
+	ctx.clearRect(170,85,10,10)
+</script>
+</body>
+</html>

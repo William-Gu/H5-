@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<HTML>
+ <HEAD>
+  <TITLE> 动画 </TITLE>
+   <meta charset="utf-8"/>
+ </HEAD>
+
+ <BODY>
+	<canvas id="cvs" width="400" height="300"
+					style="border:1px solid black;"></canvas>
+	<button onclick="stopAnimation()">停止动画</button>
+	<script>
+		//1.获取画布
+		var cvs = document.getElementById('cvs');
+		//2.获取上下文
+		var ctx = cvs.getContext('2d');
+		//3.开始绘制线性渐变
+		//1)设置线性渐变的模式对象createLinearGradient(x1,y1,x2,y2);
+		var lg = ctx.createLinearGradient(0,0,400,300);
+		//2)设置过渡色addColorStop(百分比,color);
+		//    要至少设置两个colorStop才能出现效果
+		lg.addColorStop(0.3,'red');
+		lg.addColorStop(0.7,'yellow');
+		//3)设置填充色
+		ctx.fillStyle = lg;
+		//4)绘制矩形
+		//ctx.fillRect(0,0,400,300);
+
+		//红red,橙orange,黄yellow,绿green,
+		//青cyan,蓝blue,紫purple
+		lg = ctx.createLinearGradient(0,0,0,100);
+		lg.addColorStop(.14,'red');
+		lg.addColorStop(.28,'orange');
+		lg.addColorStop(.42,'yellow');
+		lg.addColorStop(.56,'green');
+		lg.addColorStop(.70,'cyan');
+		lg.addColorStop(.84,'blue');
+		lg.addColorStop(.98,'purple');
+		ctx.fillStyle = lg;
+		ctx.fillRect(0,0,200,100);
+
+		//绘制径向渐变（球形渐变）
+		//1.创建径向渐变对象
+		//createRadialGradient(cx1,cy1,cr1,cx2,cy2,cr2)
+		var rg = ctx.createRadialGradient(200,150,0,200,150,100);
+		//2.添加渐变色
+		rg.addColorStop(0,'red');
+		rg.addColorStop(1,'black');
+		//3.应用渐变
+		ctx.fillStyle = rg;
+		//4.绘制矩形
+		ctx.fillRect(100,50,200,200);
+	</script>
+ </BODY>
+</HTML>

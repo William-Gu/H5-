@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+<style type='text/css'>
+</style>
+<!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+	<canvas id='canvas' width=300 height=300 style='background:#ddd'>
+	</canvas>
+<script>
+var cvs=document.getElementById('canvas');
+var ctx=cvs.getContext('2d');
+
+var data=[10,20,30,8]
+var data0=data[0]/68
+var data1=data[1]/68
+var data2=data[2]/68
+var data3=data[3]/68
+
+//1
+	ctx.beginPath()
+	ctx.fillStyle='red'
+	ctx.moveTo(150,150)
+	ctx.arc(150,150,50,0,data0*Math.PI*2)
+	ctx.fill()
+//2
+	ctx.beginPath()
+	ctx.fillStyle='blue'
+	ctx.moveTo(150,150)
+	ctx.arc(150,150,50,data0*Math.PI*2,(data0+data1)*Math.PI*2)
+	ctx.fill()
+	ctx.fillText('哇哈哈哈哈',100,230)
+//3
+	ctx.beginPath()
+	ctx.fillStyle='#aaa'
+	ctx.moveTo(150,150)
+	ctx.arc(150,150,50,(data0+data1)*Math.PI*2,(data0+data1+data2)*Math.PI*2)
+	ctx.fill()
+//4
+	ctx.beginPath()
+	ctx.fillStyle='#b3a'
+	ctx.moveTo(150,150)
+	ctx.arc(150,150,50,(data0+data1+data2)*Math.PI*2,1*Math.PI*2)
+	ctx.fill()
+
+
+
+</script>
+</body>
+</html>

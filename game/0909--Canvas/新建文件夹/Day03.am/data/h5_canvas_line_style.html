@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<title>线型</title>
+	<meta charset="utf-8"/>
+ </head>
+
+ <body>
+	<canvas id="cvs" width="400" height="300">
+		不支持canvas
+	</canvas>
+	<script type="text/javascript">
+		//获取画布上下文
+		var ctx = document.getElementById("cvs").getContext("2d");
+		//线宽
+		ctx.lineWidth = 8;
+		
+		//线帽:butt(默认)/round/square
+		ctx.lineCap = "butt";
+		ctx.beginPath();
+		ctx.moveTo(10,10);
+		ctx.lineTo(100,10);
+		ctx.stroke();
+		ctx.closePath();
+		
+		ctx.beginPath();
+		ctx.lineCap = "round";
+		ctx.moveTo(10,20);
+		ctx.lineTo(100,20);
+		ctx.stroke();
+		ctx.closePath();
+
+		ctx.beginPath();
+		ctx.lineCap = "square";
+		ctx.moveTo(10,30);
+		ctx.lineTo(100,30);
+		ctx.stroke();
+		ctx.closePath();
+
+		//线相交形状：round/bevel/miter(默认）
+		ctx.beginPath();
+		ctx.lineJoin = "round"
+		ctx.rect(110,10,100,100);
+		ctx.stroke();
+		ctx.closePath();
+
+		ctx.beginPath();
+		ctx.lineJoin = "bevel";
+		ctx.rect(10,110,100,100);
+		ctx.stroke();
+		ctx.closePath();
+
+		ctx.beginPath();
+		ctx.lineJoin = "miter";
+		ctx.rect(110,110,100,100);
+		ctx.stroke();
+		ctx.closePath();
+	</script>
+ </body>
+</html>

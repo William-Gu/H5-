@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <form action="/ajax/abc">
+    <input type="text" name="abc">
+    <input type="file" name="file" id="file">
+    <input type="submit" value="submit">
+  </form>
+  <script>
+    var _self={
+
+    }
+    var url=""
+    var param={
+
+    }
+    function FileUpload(that){
+      this.url=function(){
+        for(var i=0;i<that.path.length;i++){
+          if(that.path[i].tagName=='FORM'){
+            return that.path[i].action;
+          }
+          console.log(i);
+        }
+      }();
+      this.param={};
+      this.upload=function(){
+        var param = new FormData();
+            param.append('imgData', file);
+        xhr = new XMLHttpRequest();
+        console.log(xhr);
+        xhr.upload.addEventListener("progress", this.uploadProgress, false);
+        xhr.addEventListener("load", this.uploadComplete, false);
+        xhr.addEventListener("error", this.uploadFailed, false);
+        xhr.addEventListener("abort", this.uploadCanceled, false);
+        xhr.open("POST", this.url);
+        xhr.withCredentials = true; //CORS 跨域
+        xhr.send(this.param);
+      }
+    }
+    file.onchange=function(e){
+      var fileUp=new FileUpload(e);
+      fileUp.uploadProgress=function(_e){
+        console.log('uploadProgress',_e);
+      }
+      fileUp.uploadCanceled=function(_e){
+        console.log('uploadCanceled',_e);
+      }
+      fileUp.uploadFailed=function(_e){
+        console.log('uploadProgress',_e);
+      }
+      fileUp.uploadComplete=function(_e){
+        console.log('uploadComplete',_e);
+      }
+      fileUp.upload();
+    }
+  </script>
+</body>
+</html>

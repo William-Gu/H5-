@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<title>....</title>
+<meta type="generator" content="editplus"/>
+<meta type="author" content=""/>
+<meta type="keywords" content=""/>
+<meta type="description" content=""/>
+<meta charset="utf-8"/>
+<head>
+ <style type='text/css'>
+ 
+ </style>
+ <!--  <script src='jquery-1.11.3.js'></script>-->
+</head>
+<body>
+		<canvas id='canvas' width='400' height='300' style='background:#aaa'>
+
+	</canvas>
+<script>
+	var cvs=document.getElementById('canvas');
+	var ctx=cvs.getContext('2d');
+//径向渐变填充
+	var rg=ctx.createRadialGradient(120,150,0,200,150,100)
+												//(cx1，cy1，cr1，cx2，cy2，cr2)
+	rg.addColorStop(0,'red');
+	rg.addColorStop(0.15,'orange');
+	rg.addColorStop(0.3,'yellow');
+	rg.addColorStop(0.45,'green');
+	rg.addColorStop(0.6,'cyan');
+	rg.addColorStop(0.75,'blue');
+	rg.addColorStop(0.9,'purple');
+
+	ctx.fillStyle=rg
+	ctx.fillRect(100,50,200,200);
+
+
+</script>
+</body>
+</html>

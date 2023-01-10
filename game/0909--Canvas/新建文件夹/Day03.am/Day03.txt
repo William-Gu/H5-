@@ -1,0 +1,52 @@
+回顾：
+1.H5表单验证
+    1）验证属性
+        a)required
+	b)pattern
+	c)min/max 数字最大、最小值
+	d)minlength/maxlength 注意：版本较低的浏览器minlength有支持性问题，maxlength重现不了
+	e)validity(重点）：对应对象ValidityState
+	f)novalidate:用在form上，让整个表单不校验，测试时或者想要使用其他校验框架时
+	g)formnovalidate:用在submit按钮上，让这个提交按钮可以不校验就能提交，用于测试
+    2）验证事件invalid
+        只有不合法的表单元素才触发该事件，只关心不合法元素，不关心具体错误类型时才能使用。
+    3）validity属性（必须掌握）
+	a)valueMissing --- required
+	b)patternMismatch --- pattern
+	c)rangeOverflow --- max
+	d)rangeUnderflow --- min
+	e)tooShort --- minlength
+	f)tooLong --- maxlength
+	g)stepMismatch --- step
+	h)typeMismatch --- email/url
+	i)badInput --- number在里面输入字符串
+	j)valid --- 总开关属性，上面这些只要有一个为true，它就为false，代表校验失败了
+	k)customError --- 当elem.setCustomValidity('必须输入用户名')以后，它即为true。注意如果校验通过必须执行elem.setCustomValidity(''),才能使校验通过
+    4）验证方法
+        a)setCustomValidity(str)：设置默认提示信息
+	b)checkValidity()：手动触发校验，form.checkValidity()校验所有元素，相当于点击submit，input.checkValidity()仅校验该input。结果是bool。
+
+Canvas：
+1.什么是canvas
+    1）和所有DOM一样，拥有自己属性、方法和事件的新标签
+    2）拥有多种绘图方法（绘图API），javascript能够调用这些方法在网页上完成各种绘图任务：图表（线图、饼图、柱状图、蜘蛛图），图像密集型应用（h5游戏）
+
+2.怎么创建canvas
+    <canvas width="400" height="300" style="...."></canvas>
+    注意事项：宽高只能作为属性设置，如果作为css设置会出现坐标混乱
+
+3.上下文的获取
+    canvas.getContext('2d');
+
+4.绘制填充矩形、描边矩形
+    ctx.fillStyle = '#f00';   ('red')
+    ctx.fillRect(x,y,w,h);
+    ctx.strokeStyle = '#f00'; ('blue')
+    ctx.strokeRect(x,y,w,h);
+
+5.清除矩形clearRect
+    ctx.clearRect(x,y,w,h);
+
+6.绘制动画
+    1）setInterval()
+    2）clearRect()

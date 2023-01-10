@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{=
+            font-size:20px;
+            height:50px;
+            width:50px;
+            border:1px solid red;
+            position: absolute;left:0;
+        }
+    </style>
+    <script src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div id="d"></div>
+<script>
+    var obj = document.getElementById('d');
+    var x1=0,x2=0,temp=0,speed=0,step=0,no=1,min=0,
+      max=360,date1,date2,time,far,test= 0,mmove,
+      w=document.body.clientWidth;
+
+
+    var frag={
+        mousedown:function(){
+            window.document.addEventListener('mousedown', function(e) {
+                date1=new Date();
+                temp=0;
+            });
+        },
+        mousemove:function(){
+            window.document.addEventListener('mousemove', function(e) {
+                time1=new Date();
+                event.preventDefault();
+                x1=e.offsetX;
+                mmove=setTimeout(function(){
+                    x2=e.offsetX;
+                    step=x1-x2;
+                    temp=temp+step;
+                },30);
+            });
+        },
+        mouseup:function(){
+            window.document.addEventListener('mouseup', function(e) {
+                date2=new Date();
+                far=temp/(date2-date1);
+                if(far>=0){
+                    var little=setInterval(function(){
+                        far=far-(far*0.1);
+                        test=test+far*10;
+                        if(test>=360){
+                            test=0
+                        }else if(test<=0){
+                            test=360
+                        }
+                        console.log(test);
+                        far=far-(far*0.1);
+                        test=(test+far);
+                        obj.setAttribute("style","left:"+test+"px")
+                        if(far<=0.15){
+                            clearInterval(little)
+                        }
+                    },30);
+                }else{
+                    var little=setInterval(function(){
+                        far=far-(far*0.1);
+                        test=(test+far);
+                        console.log(test)
+                        obj.setAttribute("style","left:"+test+"px")
+                        if(far>=-0.15){
+                            clearInterval(little);
+                        }
+                    },30);
+                }
+            });
+
+        }
+    };
+
+    frag.mousedown();
+    frag.mousemove();
+    frag.mouseup();
+
+    /*
+    window.document.addEventListener('mousedown', function(e) {
+        date1=new Date();
+        temp=0;
+    });
+    window.document.addEventListener('mousemove', function(e) {
+        time1=new Date();
+        event.preventDefault();
+        x1=e.offsetX;
+        mmove=setTimeout(function(){
+            x2=e.offsetX;
+            step=x1-x2;
+            temp=temp+step
+        },30);
+    });
+    window.document.addEventListener('mouseup', function(e) {
+        date2=new Date();
+        far=temp/(date2-date1);
+        console.log(far);
+        if(far>=0){
+            var little=setInterval(function(){
+                far=far-(far*0.1);
+                console.log(far);
+                test=(test+far);
+                obj.setAttribute("style","left:"+test+"px")
+                if(far<=0.15){
+                    clearInterval(little)
+                }
+            },30);
+        }else{
+            var little=setInterval(function(){
+                far=far-(far*0.1);
+                console.log(far);
+                test=(test+far);
+                obj.setAttribute("style","left:"+test+"px")
+                if(far>=-0.15){
+                    clearInterval(little);
+                }
+            },30);
+        }
+    });
+
+*/
+</script>
+</body>
+</html>
