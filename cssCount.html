@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Count</title>
+    <style>
+      .con {
+        display: flex;
+        gap: 5px;
+        padding: 5px;
+        overflow: hidden;
+        counter-reset: num2; /*计数器初始值，默认为0*/
+        animation: check;
+        animation-timeline: scroll(x self);
+      }
+      .tag {
+        padding: 0.2em 0.5em;
+        background-color: #c49ef5;
+        color: #fff;
+        border-radius: 4px;
+        animation: appear;
+        animation-timeline: view(inline);
+        animation-range: contain;
+        counter-increment: num2; /*计数器增量值，默认为1*/
+      }
+
+      .num::after {
+        content: "+" counter(num2);
+        padding: 0.2em 0.5em;
+        background-color: #ffe8a3;
+        color: #191919;
+        border-radius: 4px;
+      }
+
+      @keyframes appear {
+        from,
+        to {
+          background-color: #4d47ff;
+          counter-increment: num2 0;
+        }
+      }
+
+      @keyframes check {
+        from,
+        to {
+          -webkit-mask: linear-gradient(
+            to right,
+            #fff calc(100% - 30px),
+            transparent
+          );
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="con">
+      <a class="tag">HTML</a>
+      <a class="tag">CSS</a>
+      <a class="tag">JavaScript</a>
+      <a class="tag">Flutter</a>
+      <a class="tag">Vue</a>
+      <a class="tag">React</a>
+      <a class="tag">Svelte</a>
+    </div>
+    <span class="num"></span>
+  </body>
+</html>
